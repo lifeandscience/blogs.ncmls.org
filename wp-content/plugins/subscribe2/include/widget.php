@@ -20,6 +20,7 @@ class S2_Form_widget extends WP_Widget {
 		$widgetpostcontent = empty($instance['widgetpostcontent']) ? '' : $instance['widgetpostcontent'];
 		$hidebutton = empty($instance['hidebutton']) ? 'none' : $instance['hidebutton'];
 		$postto = empty($instance['postto']) ? '' : $instance['postto'];
+		$textbox_size = empty($instance['size']) ? 20 : $instance['size'];
 		$hide = '';
 		if ( $hidebutton == 'subscribe' || $hidebutton == 'unsubscribe' ) {
 			$hide = " hide=\"" . $hidebutton . "\"";
@@ -30,7 +31,8 @@ class S2_Form_widget extends WP_Widget {
 		if ( $postto ) {
 			$postid = " id=\"" . $postto . "\"";
 		}
-		$shortcode = "[subscribe2" . $hide . $postid . "]";
+		$size = " size=\"" . $textbox_size . "\"";
+		$shortcode = "[subscribe2" . $hide . $postid . $size . "]";
 		echo $before_widget;
 		echo $before_title . $title . $after_title;
 		echo "<div class=\"" . $div . "\">";
@@ -57,6 +59,7 @@ class S2_Form_widget extends WP_Widget {
 		$instance['widgetpostcontent'] = stripslashes($new_instance['widgetpostcontent']);
 		$instance['hidebutton'] = strip_tags(stripslashes($new_instance['hidebutton']));
 		$instance['postto'] = stripslashes($new_instance['postto']);
+		$instance['size'] = intval(stripslashes($new_instance['size']));
 
 		return $instance;
 	}
@@ -68,20 +71,21 @@ class S2_Form_widget extends WP_Widget {
 		// set some defaults, getting any old options first
 		$options = get_option('widget_subscribe2widget');
 		if ( $options === false ) {
-			$defaults = array('title' => 'Subscribe2', 'div' => 'search', 'widgetprecontent' => '', 'widgetpostcontent' => '', 'hidebutton' => 'none', 'postto' => '');
+			$defaults = array('title' => 'Subscribe2', 'div' => 'search', 'widgetprecontent' => '', 'widgetpostcontent' => '', 'hidebutton' => 'none', 'postto' => '', 'size' => 20);
 		} else {
-			$defaults = array('title' => $options['title'], 'div' => $options['div'], 'widgetprecontent' => $options['widgetprecontent'], 'widgetpostcontent' => $options['widgetpostcontent'], 'hidebutton' => $options['hidebutton'], 'postto' => $options['postto']);
+			$defaults = array('title' => $options['title'], 'div' => $options['div'], 'widgetprecontent' => $options['widgetprecontent'], 'widgetpostcontent' => $options['widgetpostcontent'], 'hidebutton' => $options['hidebutton'], 'postto' => $options['postto'], 'size' => $options['size']);
 			delete_option('widget_subscribe2widget');
 		}
 		// code to obtain old settings too
 		$instance = wp_parse_args( (array) $instance, $defaults);
 
 		$title = htmlspecialchars($instance['title'], ENT_QUOTES);
-		$div= htmlspecialchars($instance['div'], ENT_QUOTES);
+		$div = htmlspecialchars($instance['div'], ENT_QUOTES);
 		$widgetprecontent = htmlspecialchars($instance['widgetprecontent'], ENT_QUOTES);
 		$widgetpostcontent = htmlspecialchars($instance['widgetpostcontent'], ENT_QUOTES);
 		$hidebutton = htmlspecialchars($instance['hidebutton'], ENT_QUOTES);
 		$postto = htmlspecialchars($instance['postto'], ENT_QUOTES);
+		$size = htmlspecialchars($instance['size'], ENT_QUOTES);
 
 		global $wpdb, $mysubscribe2;
 		$sql = "SELECT ID, post_title FROM $wpdb->posts WHERE post_type='page' AND post_status='publish'";
@@ -96,6 +100,8 @@ class S2_Form_widget extends WP_Widget {
 		echo "<textarea class=\"widefat\" id=\"" . $this->get_field_name('widgetprecontent') . "\" name=\"" . $this->get_field_name('widgetprecontent') . "\" rows=\"2\" cols=\"25\">" . $widgetprecontent . "</textarea></label></p>\r\n";
 		echo "<p><label for=\"" . $this->get_field_name('widgetpostcontent') . "\">" . __('Post-Content', 'subscribe2') . ":\r\n";
 		echo "<textarea class=\"widefat\" id=\"" . $this->get_field_id('widgetpostcontent') . "\" name=\"" . $this->get_field_name('widgetpostcontent') . "\" rows=\"2\" cols=\"25\">" . $widgetpostcontent . "</textarea></label></p>\r\n";
+		echo "<p><label for=\"" . $this->get_field_name('size') . "\">" . __('Text Box Size', 'subscribe2') . ":\r\n";
+		echo "<input class=\"widefat\" id=\"" . $this->get_field_id('size') . "\" name=\"" . $this->get_field_name('size') . "\" type=\"text\" value=\"" . $size . "\" /></label></label></p>\r\n";
 		echo "<p><label for=\"" . $this->get_field_name('hidebutton') . "\">" . __('Display options', 'subscribe2') . ":<br />\r\n";
 		echo "<input name=\"" . $this->get_field_name('hidebutton') . "\" type=\"radio\" value=\"none\"". checked('none', $hidebutton, false) . "/>" . __('Show complete form', 'subscribe2') . "<br /><input name=\"" . $this->get_field_name('hidebutton') . "\" type=\"radio\" value=\"subscribe\"". checked('subscribe', $hidebutton, false) . "/>" . __('Hide Subscribe button', 'subscribe2') . "<br /><input name=\"" . $this->get_field_name('hidebutton') . "\" type=\"radio\" value=\"unsubscribe\"". checked('unsubscribe', $hidebutton, false) . "/>" . __('Hide Unsubscribe button', 'subscribe2');
 		if ( '1' == $mysubscribe2->subscribe2_options['ajax'] ) {

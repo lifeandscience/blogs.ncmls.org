@@ -59,8 +59,14 @@ switch ( $_POST['oauth_settings'] ) {
 						$oauth_hash = wtt_oauth_credentials_to_hash();
 						update_option('wtt_oauth_hash', $oauth_hash);
 						$message = 'success';
+						delete_option( 'wpt_curl_error' );
+					} else if ( $connection->http_code == 0 ) {
+						$error_information = __("WP to Twitter was unable to make a connection to Twitter. Verify with your host that your server has cURL support and <code>curl_exec()</code> commands are enabled.",'wp-to-twitter'); 
+						update_option( 'wpt_curl_error',$error_information);
 					} else {
 						$error_information = array("http_code"=>$connection->http_code,"status"=>$connection->http_header['status']);
+						$error_code = __("Twitter response: http_code $error_information[http_code] - $error_information[status]",'wp-to-twitter');
+						update_option( 'wpt_curl_error',$error_code );
 					}
 					if ( get_option('wp_debug_oauth') == '1' ) {
 					echo "<pre><strong>Summary Connection Response:</strong><br />";
@@ -110,7 +116,7 @@ if ( is_wp_error( $response ) ) {
 		print('	
 			<h3>'.__('Connect to Twitter','wp-to-twitter').'</h3>
 			<div class="inside">
-			<p>'.__('Your server time:','wp-to-twitter').' <code>'.$server_time.'</code>'.__("Twitter\'s current server time:").' <code>'.$date.'</code>. '.__( 'If these times are not within 5 minutes of each other, your server will not be able to connect to Twitter.','wp-to-twitter').'</p>
+			<p>'.__('Your server time:','wp-to-twitter').' <code>'.$server_time.'</code><br />'.__("Twitter's server time:").' <code>'.$date.'</code>.<br />'.__( 'If these times are not within 5 minutes of each other, your server will not be able to connect to Twitter.','wp-to-twitter').'</p>
 			<p>'.__('The process to set up OAuth authentication for your web site is needlessly laborious. However, this is the method available. Note that you will not add your Twitter username or password to WP to Twitter; they are not used in OAuth authentication.', 'wp-to-twitter').'</p> 
 			<form action="" method="post">
 				<fieldset class="options">
@@ -130,25 +136,28 @@ if ( is_wp_error( $response ) ) {
 						</ul>					
 					<p><em>'.__('Once you have registered your site as an application, you will be provided with four keys.' , 'wp-to-twitter').'</em></p>
 					<h4>'.__('3. Copy and paste your consumer key and consumer secret into the fields below' , 'wp-to-twitter').'</h4>
-				
+					<div class="tokens">
 					<p>
 						<label for="wtt_app_consumer_key">'.__('Twitter Consumer Key', 'wp-to-twitter').'</label>
-						<input type="text" size="25" name="wtt_app_consumer_key" id="wtt_app_consumer_key" value="'.esc_attr( get_option('app_consumer_key') ).'" />
+						<input type="text" size="45" name="wtt_app_consumer_key" id="wtt_app_consumer_key" value="'.esc_attr( get_option('app_consumer_key') ).'" />
 					</p>
 					<p>
 						<label for="wtt_app_consumer_secret">'.__('Twitter Consumer Secret', 'wp-to-twitter').'</label>
-						<input type="text" size="25" name="wtt_app_consumer_secret" id="wtt_app_consumer_secret" value="'.esc_attr( get_option('app_consumer_secret') ).'" />
+						<input type="text" size="45" name="wtt_app_consumer_secret" id="wtt_app_consumer_secret" value="'.esc_attr( get_option('app_consumer_secret') ).'" />
 					</p>
+					</div>
 					<h4>'.__('4. Copy and paste your Access Token and Access Token Secret into the fields below','wp-to-twitter').'</h4>
 					<p>'.__('If the Access level reported for your Access Token is not "Read and write", you need to go back to step 2 and generate a new Access Token.','wp-to-twitter').'</p>
+					<div class="tokens">
 					<p>
 						<label for="wtt_oauth_token">'.__('Access Token', 'wp-to-twitter').'</label>
-						<input type="text" size="25" name="wtt_oauth_token" id="wtt_oauth_token" value="'.esc_attr( get_option('oauth_token') ).'" />
+						<input type="text" size="45" name="wtt_oauth_token" id="wtt_oauth_token" value="'.esc_attr( get_option('oauth_token') ).'" />
 					</p>
 					<p>
 						<label for="wtt_oauth_token_secret">'.__('Access Token Secret', 'wp-to-twitter').'</label>
-						<input type="text" size="25" name="wtt_oauth_token_secret" id="wtt_oauth_token_secret" value="'.esc_attr( get_option('oauth_token_secret') ).'" />
+						<input type="text" size="45" name="wtt_oauth_token_secret" id="wtt_oauth_token_secret" value="'.esc_attr( get_option('oauth_token_secret') ).'" />
 					</p>
+					</div>
 				</fieldset>
 				<p class="submit">
 					<input type="submit" name="submit" class="button-primary" value="'.__('Connect to Twitter', 'wp-to-twitter').'" />
@@ -182,7 +191,7 @@ if ( is_wp_error( $response ) ) {
 					</div>
 				</div>		
 			</form>
-			<p>'.__('Your server time:','wp-to-twitter').' <code>'.$server_time.'</code>.<br />'.__('Twitter\'s current server time: ','wp-to-twitter').'<code>'.$date.'</code>.</p><p> '.__( 'If these times are not within 5 minutes of each other, your server could lose it\'s connection with Twitter.','wp-to-twitter').'</p></div>');
+			<p>'.__('Your server time:','wp-to-twitter').' <code>'.$server_time.'</code>.<br />'.__('Twitter\'s current server time: ','wp-to-twitter').'<code>'.$date.'</code>.</p><p> '.__( 'If these times are not within 5 minutes of each other, your server could lose its connection with Twitter.','wp-to-twitter').'</p></div>');
 	}
 echo "</div>";
 echo "</div>";

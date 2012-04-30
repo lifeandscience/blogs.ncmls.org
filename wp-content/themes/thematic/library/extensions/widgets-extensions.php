@@ -1,17 +1,18 @@
 <?php
 
 function thematic_search_form() {
+				$search_form_length = apply_filters('thematic_search_form_length', '32');
 				$search_form = "\n" . "\t";
-				$search_form .= '<form id="searchform" method="get" action="' . get_bloginfo('home') .'">';
+				$search_form .= '<form id="searchform" method="get" action="' . get_bloginfo('url') .'/">';
 				$search_form .= "\n" . "\t" . "\t";
 				$search_form .= '<div>';
 				$search_form .= "\n" . "\t" . "\t". "\t";
 				if (is_search()) {
-						$search_form .= '<input id="s" name="s" type="text" value="' . wp_specialchars(stripslashes($_GET['s']), true) .'" size="32" tabindex="1" />';
+						$search_form .= '<input id="s" name="s" type="text" value="' . esc_html(stripslashes($_GET['s'])) .'" size="' . $search_form_length . '" tabindex="1" />';
 				} else {
 						$value = __('To search, type and hit enter', 'thematic');
 						$value = apply_filters('search_field_value',$value);
-						$search_form .= '<input id="s" name="s" type="text" value="' . $value . '" onfocus="if (this.value == \'' . $value . '\') {this.value = \'\';}" onblur="if (this.value == \'\') {this.value = \'' . $value . '\';}" size="32" tabindex="1" />';
+						$search_form .= '<input id="s" name="s" type="text" value="' . $value . '" onfocus="if (this.value == \'' . $value . '\') {this.value = \'\';}" onblur="if (this.value == \'\') {this.value = \'' . $value . '\';}" size="'. $search_form_length .'" tabindex="1" />';
 				}
 				$search_form .= "\n" . "\t" . "\t". "\t";
 
@@ -29,10 +30,8 @@ function thematic_search_form() {
 
 }
 
-// Widgets plugin: intializes the plugin after the widgets above have passed snuff
-
-function thematic_widgets_init() {
-
+function thematic_widgets_array()
+{
 	// Define array for the widgetized areas
 	$thematic_widgetized_areas = array(
 		'Primary Aside' => array(
@@ -232,16 +231,19 @@ function thematic_widgets_init() {
 			),
 		);
 	
-	$thematic_widgetized_areas = apply_filters('thematic_widgetized_areas', $thematic_widgetized_areas);
+	return apply_filters('thematic_widgetized_areas', $thematic_widgetized_areas);
+	
+}
+
+function thematic_widgets_init() {
+
+	$thematic_widgetized_areas = thematic_widgets_array();
 	
 	if ( !function_exists('register_sidebars') )
 			return;
 
 	foreach ($thematic_widgetized_areas as $key => $value) {
 		register_sidebar($thematic_widgetized_areas[$key]['args']);
-		if (!has_action($thematic_widgetized_areas[$key]['action_hook'], $thematic_widgetized_areas[$key]['function'])) {
-			add_action($thematic_widgetized_areas[$key]['action_hook'], $thematic_widgetized_areas[$key]['function'], $thematic_widgetized_areas[$key]['priority']);	
-		}
 	}
 	  
     // we will check for a Thematic widgets directory and and add and activate additional widgets
@@ -266,32 +268,24 @@ function thematic_widgets_init() {
 
 	// Remove WP default Widgets
 	// WP 2.8 function using $widget_class
-	if (function_exists('unregister_widget')) {
-		unregister_widget('WP_Widget_Meta');
-		unregister_widget('WP_Widget_Search');
-        unregister_widget('');
 	
-	// pre WP 2.8 function using $id
-	} else {
-		unregister_widget_control('meta');
-		unregister_widget_control('search');	
-	}
+    unregister_widget('WP_Widget_Meta');
+    unregister_widget('WP_Widget_Search');
 
 	// Finished intializing Widgets plugin, now let's load the thematic default widgets
-	register_sidebar_widget(__('Search', 'thematic'), 'widget_thematic_search', null, 'search');
-	unregister_widget_control('search');
-	register_sidebar_widget(__('Meta', 'thematic'), 'widget_thematic_meta', null, 'meta');
-	unregister_widget_control('meta');
-	register_sidebar_widget(array(__('RSS Links', 'thematic'), 'widgets'), 'widget_thematic_rsslinks');
-	register_widget_control(array(__('RSS Links', 'thematic'), 'widgets'), 'widget_thematic_rsslinks_control', 300, 90);
+	
+	register_widget('THM_Widget_Search');
+	register_widget('THM_Widget_Meta');
+	register_widget('THM_Widget_RSSlinks');
 
 	// Pre-set Widgets
 	$preset_widgets = array (
-		'primary-aside'  => array( 'search', 'pages', 'categories', 'archives' ),
-		'secondary-aside'  => array( 'links', 'rss-links', 'meta' )
+		'primary-aside'  => array( 'search-2', 'pages-2', 'categories-2', 'archives-2' ),
+		'secondary-aside'  => array( 'links-2', 'rss-links-2', 'meta-2' )
 		);
 
     if ( isset( $_GET['activated'] ) ) {
+    	thematic_presetwidgets();
   		update_option( 'sidebars_widgets', apply_filters('thematic_preset_widgets',$preset_widgets ));
   	}
 
@@ -299,6 +293,43 @@ function thematic_widgets_init() {
 
 // Runs our code at the end to check that everything needed has loaded
 add_action( 'widgets_init', 'thematic_widgets_init' );
+
+// Action hook for initializing the preset widgets
+function thematic_presetwidgets() {
+	do_action( 'thematic_presetwidgets' );
+}
+
+// Initialize the preset widgets
+if (function_exists('childtheme_override_init_presetwidgets'))  {
+    function thematic_init_presetwidgets() {
+    	childtheme_override_init_presetwidgets();
+    }
+} else {
+	function thematic_init_presetwidgets() {
+		update_option( 'widget_search', array( 2 => array( 'title' => '' ), '_multiwidget' => 1 ) );
+		update_option( 'widget_pages', array( 2 => array( 'title' => ''), '_multiwidget' => 1 ) );
+		update_option( 'widget_categories', array( 2 => array( 'title' => '', 'count' => 0, 'hierarchical' => 0, 'dropdown' => 0 ), '_multiwidget' => 1 ) );
+		update_option( 'widget_archives', array( 2 => array( 'title' => '', 'count' => 0, 'dropdown' => 0 ), '_multiwidget' => 1 ) );
+		update_option( 'widget_links', array( 2 => array( 'title' => ''), '_multiwidget' => 1 ) );
+		update_option( 'widget_rss-links', array( 2 => array( 'title' => ''), '_multiwidget' => 1 ) );
+		update_option( 'widget_meta', array( 2 => array( 'title' => ''), '_multiwidget' => 1 ) );
+	}
+}
+add_action( 'thematic_presetwidgets', 'thematic_init_presetwidgets' );
+
+// We connect the relevant functions to the action hooks
+function thematic_connect_functions() {
+
+	$thematic_widgetized_areas = thematic_widgets_array();
+
+	foreach ($thematic_widgetized_areas as $key => $value) {
+		if (!has_action($thematic_widgetized_areas[$key]['action_hook'], $thematic_widgetized_areas[$key]['function'])) {
+			add_action($thematic_widgetized_areas[$key]['action_hook'], $thematic_widgetized_areas[$key]['function'], $thematic_widgetized_areas[$key]['priority']);	
+		}
+	}
+
+}
+add_action('template_redirect', 'thematic_connect_functions');
 
 // We sort our array of widgetized areas to get a nice list display under wp-admin
 function thematic_sort_widgetized_areas($content) {
@@ -311,7 +342,7 @@ add_filter('thematic_widgetized_areas', 'thematic_sort_widgetized_areas', 100);
 
 // Define the Primary Aside 
 function thematic_primary_aside() {
-	if (is_sidebar_active('primary-aside')) {
+	if (is_active_sidebar('primary-aside')) {
 		echo thematic_before_widget_area('primary-aside');
 		dynamic_sidebar('primary-aside');
 		echo thematic_after_widget_area('primary-aside');
@@ -320,7 +351,7 @@ function thematic_primary_aside() {
 
 // Define the Secondary Aside
 function thematic_secondary_aside() {
-	if (is_sidebar_active('secondary-aside')) {
+	if (is_active_sidebar('secondary-aside')) {
 		echo thematic_before_widget_area('secondary-aside');
 		dynamic_sidebar('secondary-aside');
 		echo thematic_after_widget_area('secondary-aside');
@@ -329,7 +360,7 @@ function thematic_secondary_aside() {
 
 // Define the 1st Subsidiary Aside
 function thematic_1st_subsidiary_aside() {
-	if (is_sidebar_active('1st-subsidiary-aside')) {
+	if (is_active_sidebar('1st-subsidiary-aside')) {
 		echo thematic_before_widget_area('1st-subsidiary-aside');
 		dynamic_sidebar('1st-subsidiary-aside');
 		echo thematic_after_widget_area('1st-subsidiary-aside');
@@ -338,7 +369,7 @@ function thematic_1st_subsidiary_aside() {
 
 // Define the 2nd Subsidiary Aside
 function thematic_2nd_subsidiary_aside() {
-	if (is_sidebar_active('2nd-subsidiary-aside')) {
+	if (is_active_sidebar('2nd-subsidiary-aside')) {
 		echo thematic_before_widget_area('2nd-subsidiary-aside');
 		dynamic_sidebar('2nd-subsidiary-aside');
 		echo thematic_after_widget_area('2nd-subsidiary-aside');
@@ -347,7 +378,7 @@ function thematic_2nd_subsidiary_aside() {
 
 // Define the 3rd Subsidiary Aside
 function thematic_3rd_subsidiary_aside() {
-	if (is_sidebar_active('3rd-subsidiary-aside')) {
+	if (is_active_sidebar('3rd-subsidiary-aside')) {
 		echo thematic_before_widget_area('3rd-subsidiary-aside');
 		dynamic_sidebar('3rd-subsidiary-aside');
 		echo thematic_after_widget_area('3rd-subsidiary-aside');
@@ -356,7 +387,7 @@ function thematic_3rd_subsidiary_aside() {
 
 // Define the Index Top
 function thematic_index_top() {
-	if (is_sidebar_active('index-top')) {
+	if (is_active_sidebar('index-top')) {
 		echo thematic_before_widget_area('index-top');
 		dynamic_sidebar('index-top');
 		echo thematic_after_widget_area('index-top');
@@ -365,7 +396,7 @@ function thematic_index_top() {
 
 // Define the Index Insert
 function thematic_index_insert() {
-	if (is_sidebar_active('index-insert')) {
+	if (is_active_sidebar('index-insert')) {
 		echo thematic_before_widget_area('index-insert');
 		dynamic_sidebar('index-insert');
 		echo thematic_after_widget_area('index-insert');
@@ -374,7 +405,7 @@ function thematic_index_insert() {
 
 // Define the Index Bottom
 function thematic_index_bottom() {
-	if (is_sidebar_active('index-bottom')) {
+	if (is_active_sidebar('index-bottom')) {
 		echo thematic_before_widget_area('index-bottom');
 		dynamic_sidebar('index-bottom');
 		echo thematic_after_widget_area('index-bottom');
@@ -383,7 +414,7 @@ function thematic_index_bottom() {
 
 // Define the Single Top
 function thematic_single_top() {
-	if (is_sidebar_active('single-top')) {
+	if (is_active_sidebar('single-top')) {
 		echo thematic_before_widget_area('single-top');
 		dynamic_sidebar('single-top');
 		echo thematic_after_widget_area('single-top');
@@ -392,7 +423,7 @@ function thematic_single_top() {
 
 // Define the Single Insert
 function thematic_single_insert() {
-	if (is_sidebar_active('single-insert')) {
+	if (is_active_sidebar('single-insert')) {
 		echo thematic_before_widget_area('single-insert');
 		dynamic_sidebar('single-insert');
 		echo thematic_after_widget_area('single-insert');
@@ -401,7 +432,7 @@ function thematic_single_insert() {
 
 // Define the Single Bottom
 function thematic_single_bottom() {
-	if (is_sidebar_active('single-bottom')) {
+	if (is_active_sidebar('single-bottom')) {
 		echo thematic_before_widget_area('single-bottom');
 		dynamic_sidebar('single-bottom');
 		echo thematic_after_widget_area('single-bottom');
@@ -410,7 +441,7 @@ function thematic_single_bottom() {
 
 // Define the Page Top
 function thematic_page_top() {
-	if (is_sidebar_active('page-top')) {
+	if (is_active_sidebar('page-top')) {
 		echo thematic_before_widget_area('page-top');
 		dynamic_sidebar('page-top');
 		echo thematic_after_widget_area('page-top');
@@ -419,7 +450,7 @@ function thematic_page_top() {
 
 // Define the Page Bottom
 function thematic_page_bottom() {
-	if (is_sidebar_active('page-bottom')) {
+	if (is_active_sidebar('page-bottom')) {
 		echo thematic_before_widget_area('page-bottom');
 		dynamic_sidebar('page-bottom');
 		echo thematic_after_widget_area('page-bottom');

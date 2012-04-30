@@ -56,7 +56,6 @@
 		update_option( 'comment-published-text', 'New comment: #title# #url#' );				
 		update_option( 'limit_categories','0' );
 		update_option( 'jd_shortener', '1' );
-		update_option( 'use_tags_as_hashtags', '0' );
 		update_option( 'jd_strip_nonan', '0' );
 		update_option('jd_max_tags',3);
 		update_option('jd_max_characters',15);	
@@ -95,9 +94,13 @@
 				</div>
 
 			');
-		}
-		else if ( $oauth_message == "fail" ) {
+		} else if ( $oauth_message == "fail" ) {
+			print('
+				<div id="message" class="updated fade">
+					<p>'.__('WP to Twitter failed to connect with Twitter. Try enabling OAuth debugging.', 'wp-to-twitter').'</p>
+				</div>
 
+			');
 		} else if ( $oauth_message == "cleared" ) {
 			print('
 				<div id="message" class="updated fade">
@@ -107,38 +110,25 @@
 			');		
 		} else  if ( $oauth_message == 'nosync' ) {
 			print('
-				<div id="message" class="updated fade">
+				<div id="message" class="error fade">
 					<p>'.__('OAuth Authentication Failed. Your server time is not in sync with the Twitter servers. Talk to your hosting service to see what can be done.', 'wp-to-twitter').'</p>
 				</div>
 
 			');
 		} else {
 			print('
-				<div id="message" class="updated fade">
+				<div id="message" class="error fade">
 					<p>'.__('OAuth Authentication response not understood.', 'wp-to-twitter').'</p>
 				</div>			
 			');
 		}
 	}
 		
-	// Error messages on status update or url shortener failures	
-	if ( get_option( 'wp_twitter_failure' ) == '1' ) {
-		$wp_to_twitter_failure = '';
-		if ( get_option( 'wp_twitter_failure' ) == '1' ) {
-			$wp_to_twitter_failure .= "<p>" . __("Sorry! I couldn't get in touch with the Twitter servers to post your new blog post. Your tweet has been stored in a custom field attached to the post, so you can Tweet it manually if you wish! ", 'wp-to-twitter') . "</p>";
-		} else if ( get_option( 'wp_twitter_failure' ) == '2') {
-			$wp_to_twitter_failure .= "<p>" . __("Sorry! I couldn't get in touch with the Twitter servers to post your <strong>new link</strong>! You'll have to post it manually, I'm afraid. ", 'wp-to-twitter') . "</p>";
-		}
-	} else {
-		$wp_to_twitter_failure = '';
-	}
-
 	if ( isset( $_POST['submit-type'] ) && $_POST['submit-type'] == 'advanced' ) {
 		update_option( 'jd_tweet_default', $_POST['jd_tweet_default'] );
 		update_option( 'wpt_inline_edits', $_POST['wpt_inline_edits'] );		
 		update_option( 'jd_twit_remote',$_POST['jd_twit_remote'] );
 		update_option( 'jd_twit_custom_url', $_POST['jd_twit_custom_url'] );
-		update_option( 'use_tags_as_hashtags', $_POST['use_tags_as_hashtags'] );
 		update_option( 'jd_strip_nonan', $_POST['jd_strip_nonan'] );
 		update_option( 'jd_twit_prepend', $_POST['jd_twit_prepend'] );	
 		update_option( 'jd_twit_append', $_POST['jd_twit_append'] );
@@ -341,7 +331,6 @@ function jd_check_functions() {
 	return $message;
 }
 ?>
-
 <div class="wrap" id="wp-to-twitter">
 <?php wpt_marginal_function(); ?>
 <?php if ( $message ) { ?>
@@ -356,8 +345,7 @@ print_settings();
 <div class="resources">
 <img src="<?php echo $wp_to_twitter_directory; ?>/wp-to-twitter-logo.png" alt="WP to Twitter" />
 <p>
-<a href="https://fundry.com/project/10-wp-to-twitter"><?php _e("Pledge to new features",'wp-to-twitter'); ?></a><?php if ( get_option('jd_donations') != 1 ) { ?>
- &middot; <a href="http://www.joedolson.com/donate.php"><?php _e("Make a Donation",'wp-to-twitter'); ?></a><?php } ?> &middot; <a href="?page=wp-to-twitter/wp-to-twitter.php&amp;export=settings"><?php _e("View Settings",'wp-to-twitter'); ?></a> &middot; <a href="<?php echo admin_url('options-general.php?page=wp-to-twitter/wp-to-twitter.php'); ?>#get-support"><?php _e("Get Support",'wp-to-twitter'); ?></a>
+<a href="?page=wp-to-twitter/wp-to-twitter.php&amp;export=settings"><?php _e("View Settings",'wp-to-twitter'); ?></a><?php if ( get_option('jd_donations') != 1 ) { ?> &middot; <a href="http://www.joedolson.com/donate.php"><strong><?php _e("Make a Donation",'wp-to-twitter'); ?></strong></a><?php } ?> &middot; <a href="<?php echo admin_url('options-general.php?page=wp-to-twitter/wp-to-twitter.php'); ?>#get-support"><?php _e("Get Support",'wp-to-twitter'); ?></a>
 </p>
 <?php if ( get_option('jd_donations') != 1 ) { ?>
 <div>
@@ -388,19 +376,24 @@ print_settings();
 <li><?php _e("<code>#url#</code>: the post URL", 'wp-to-twitter'); ?></li>
 <li><?php _e("<code>#author#</code>: the post author",'wp-to-twitter'); ?></li>
 <li><?php _e("<code>#account#</code>: the twitter @reference for the account (or the author, if author settings are enabled and set.)",'wp-to-twitter'); ?></li>
+<li><?php _e("<code>#tags#</code>: your tags modified into hashtags. See options in the Advanced Settings section, below.",'wp-to-twitter'); ?></li>
 </ul>
 <p><?php _e("You can also create custom shortcodes to access WordPress custom fields. Use doubled square brackets surrounding the name of your custom field to add the value of that custom field to your status update. Example: <code>[[custom_field]]</code></p>", 'wp-to-twitter'); ?>
 		
-<?php if ( get_option( 'wp_twitter_failure' ) == '1' || get_option( 'wp_url_failure' ) == '1' ) { ?>
+<?php if ( get_option( 'wp_twitter_failure' ) != '0' || get_option( 'wp_url_failure' ) == '1' ) { ?>
 		<div class="error">
 		<?php if ( get_option( 'wp_twitter_failure' ) == '1' ) {
 		_e("<p>One or more of your last posts has failed to send it's status update to Twitter. Your Tweet has been saved in your post custom fields, and you can re-Tweet it at your leisure.</p>", 'wp-to-twitter');
 		echo "<p><strong>".get_option( 'jd_status_message' )."</strong></p>";
 		}
+		if ( get_option( 'wp_twitter_failure' ) == '2') {
+		echo "<p>";
+		_e("Sorry! I couldn't get in touch with the Twitter servers to post your <strong>new link</strong>! You'll have to post it manually, I'm afraid. ", 'wp-to-twitter');
+		echo "</p>";
+		}		
 		if ( get_option( 'wp_url_failure' ) == '1' ) {
-		_e("<p>The query to the URL shortener API failed, and your URL was not shrunk. The full post URL was attached to your Tweet. Check with your URL shortening provider to see if there are any known issues. [<a href=\"http://www.stumbleupon.com/help/how-to-use-supr/\">Su.pr Help</a>] [<a href=\"http://blog.bit.ly\">Bit.ly Blog</a>]</p>", 'wp-to-twitter');
+		_e("<p>The query to the URL shortener API failed, and your URL was not shrunk. The full post URL was attached to your Tweet. Check with your URL shortening provider to see if there are any known issues.</p>", 'wp-to-twitter');
 		}
-		echo $wp_to_twitter_failure;
 ?>
 		</div>
 	<form method="post" action="">
@@ -436,22 +429,22 @@ print_settings();
 							if ( strpos($type, $vowel ) === 0 ) { $word = 'an'; break; } else { $word = 'a'; }
 						}
 				?>
-			<fieldset>
+			<fieldset class='wpt_types'>
 			<legend><?php _e("Settings for type '$type'",'wp-to-twitter' ); ?></legend>
 			<p>
 				<input type="checkbox" name="wpt_post_types[<?php echo $type; ?>][post-published-update]" id="<?php echo $type; ?>-post-published-update" value="1" <?php jd_checkCheckbox('wpt_post_types',$type,'post-published-update')?> />
-				<label for="<?php echo $type; ?>-post-published-update"><strong><?php _e("Update when $word $type is published", 'wp-to-twitter'); ?></strong></label> <label for="<?php echo $type; ?>-post-published-text"><br /><?php _e("Text for new $type updates:", 'wp-to-twitter'); ?></label> <input type="text" name="wpt_post_types[<?php echo $type; ?>][post-published-text]" id="<?php echo $type; ?>-post-published-text" size="60" maxlength="120" value="<?php echo( esc_attr( stripslashes( $wpt_settings[$type]['post-published-text'] ) ) ); ?>" />
+				<label for="<?php echo $type; ?>-post-published-update"><strong><?php _e("Update when $word $type is published", 'wp-to-twitter'); ?></strong></label> <label for="<?php echo $type; ?>-post-published-text"><br /><?php _e("Text for new $type updates:", 'wp-to-twitter'); ?></label><br /><input type="text" name="wpt_post_types[<?php echo $type; ?>][post-published-text]" id="<?php echo $type; ?>-post-published-text" size="60" maxlength="120" value="<?php echo( esc_attr( stripslashes( $wpt_settings[$type]['post-published-text'] ) ) ); ?>" />
 			</p>
 			<p>
 				<input type="checkbox" name="wpt_post_types[<?php echo $type; ?>][post-edited-update]" id="<?php echo $type; ?>-post-edited-update" value="1" <?php jd_checkCheckbox('wpt_post_types',$type,'post-edited-update')?> />
-				<label for="<?php echo $type; ?>-post-edited-update"><strong><?php _e("Update when $word $type is edited", 'wp-to-twitter'); ?></strong></label><br /><label for="<?php echo $type; ?>-post-edited-text"><?php _e("Text for $type editing updates:", 'wp-to-twitter'); ?></label> <input type="text" name="wpt_post_types[<?php echo $type; ?>][post-edited-text]" id="<?php echo $type; ?>-post-edited-text" size="60" maxlength="120" value="<?php echo( esc_attr( stripslashes( $wpt_settings[$type]['post-edited-text'] ) ) ); ?>" />	
+				<label for="<?php echo $type; ?>-post-edited-update"><strong><?php _e("Update when $word $type is edited", 'wp-to-twitter'); ?></strong></label><br /><label for="<?php echo $type; ?>-post-edited-text"><?php _e("Text for $type editing updates:", 'wp-to-twitter'); ?></label><br /><input type="text" name="wpt_post_types[<?php echo $type; ?>][post-edited-text]" id="<?php echo $type; ?>-post-edited-text" size="60" maxlength="120" value="<?php echo( esc_attr( stripslashes( $wpt_settings[$type]['post-edited-text'] ) ) ); ?>" />	
 			</p>
 			</fieldset>
 			<?php
 					}
 				} 
 			?>
-			<fieldset>
+			<fieldset class="comments">
 			<legend><?php _e('Settings for Comments','wp-to-twitter'); ?></legend>
 			<p>
 				<input type="checkbox" name="comment-published-update" id="comment-published-update" value="1" <?php jd_checkCheckbox('comment-published-update')?> />
@@ -587,8 +580,8 @@ print_settings();
 			<fieldset>
 				<legend><?php _e("Advanced Tweet settings","wp-to-twitter"); ?></legend>
 			<p>
-				<input type="checkbox" name="use_tags_as_hashtags" id="use_tags_as_hashtags" value="1" <?php jd_checkCheckbox('use_tags_as_hashtags'); ?> /> <label for="use_tags_as_hashtags"><?php _e("Add tags as hashtags on Tweets", 'wp-to-twitter'); ?></label> <input type="checkbox" name="jd_strip_nonan" id="jd_strip_nonan" value="1" <?php jd_checkCheckbox('jd_strip_nonan'); ?> /> <label for="jd_strip_nonan"><?php _e("Strip nonalphanumeric characters",'wp-to-twitter'); ?></label><br />
-				<label for="jd_replace_character"><?php _e("Spaces replaced with:",'wp-to-twitter'); ?></label> <input type="text" name="jd_replace_character" id="jd_replace_character" value="<?php echo esc_attr( get_option('jd_replace_character') ); ?>" size="3" /><br />
+				 <input type="checkbox" name="jd_strip_nonan" id="jd_strip_nonan" value="1" <?php jd_checkCheckbox('jd_strip_nonan'); ?> /> <label for="jd_strip_nonan"><?php _e("Strip nonalphanumeric characters from tags",'wp-to-twitter'); ?></label><br />
+				<label for="jd_replace_character"><?php _e("Spaces in tags replaced with:",'wp-to-twitter'); ?></label> <input type="text" name="jd_replace_character" id="jd_replace_character" value="<?php echo esc_attr( get_option('jd_replace_character') ); ?>" size="3" /><br />
 				
 				<small><?php _e("Default replacement is an underscore (<code>_</code>). Use <code>[ ]</code> to remove spaces entirely.",'wp-to-twitter'); ?></small>					
 			</p>
@@ -691,7 +684,7 @@ print_settings();
 </div>
 </div>
 <div class="ui-sortable meta-box-sortables">
-<div class="postbox">
+<div class="postbox categories">
 	<h3><?php _e('Limit Updating Categories','wp-to-twitter'); ?></h3>
 	<div class="inside">
 		<p>

@@ -3,7 +3,7 @@
 -------------------------------------------------------------- */
 
 body, input, textarea {
-    font: 15px Georgia,serif;
+    font:15px Georgia,serif;
     line-height:22px;
 }
 p, ul, ol, dd, pre {
@@ -154,12 +154,19 @@ ul.sf-menu li li li.sfHover ul {
     border-right:1px solid #ccc;
 	float:left;
 }
+.ie6 .sf-menu {
+	margin-bottom: -1px;
+}
 .sf-menu a {
 	border-left:1px solid #ccc;
 	border-top:1px solid #ccc;
 	border-bottom:1px solid #ccc;
 	padding:9px 13px;
 	text-decoration:none;
+}
+.windows .sf-menu a {
+	font-size: 12px;
+	padding:9px 13px 10px;
 }
 .sf-menu .current_page_item a,
 .sf-menu .current_page_ancestor a,
@@ -318,6 +325,7 @@ ul.sf-menu li li li.sfHover ul {
     margin:0 0 22px 0;
 }
 .entry-utility {
+	clear:both;
     color:#666;
     font-size:13px;
     line-height:18px;
@@ -331,6 +339,10 @@ ul.sf-menu li li li.sfHover ul {
 .entry-utility a:active,
 .entry-utility a:hover {
     color: #FF4B33;
+}
+.edit-link {
+	clear:both;
+	display:block;
 }
 .page-link {
     font-size:13px;
@@ -363,8 +375,36 @@ li.content-column {
     width:45%;
 }
 .gallery {
+	display: block;
+	clear: both;
+	overflow: hidden;
+	margin: 0 auto;
     padding:0 0 22px 0;
-}
+	}
+.gallery .gallery-row {
+	display: block;
+	clear: both;
+	overflow: hidden;
+	margin: 0;
+	}
+.gallery .gallery-item {
+	overflow: hidden;
+	float: left;
+	margin: 0;
+	text-align: center;
+	list-style: none;
+	padding: 0;
+	}
+.gallery .gallery-item img, .gallery .gallery-item img.thumbnail {
+	max-width: 89%;
+	height: auto;
+	padding: 1%;
+	margin: 0 auto;
+	border: none !important;
+	}
+.gallery-caption {
+	margin-left: 0;
+	}
 .wp-caption-text,
 .gallery-caption {
     color:#666;
@@ -450,6 +490,7 @@ li.content-column {
 -------------------------------------------------------------- */
 
 #comments {
+	clear:both;
     padding:22px 0 0 0;
 }
 #comments,
@@ -559,7 +600,7 @@ li.content-column {
 }
 #trackbacks-list .comment-content {
     position:absolute;
-    left:-9000px;
+    left:-10000px;
 }
 #respond {
     background:#fff;

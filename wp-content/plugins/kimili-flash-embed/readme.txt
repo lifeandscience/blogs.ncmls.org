@@ -2,8 +2,8 @@
 Contributors: Kimili
 Tags: flash, flex, swf, swfobject, javascript
 Requires at least: 2.8
-Tested up to: 3.1.3
-Stable tag: 2.2
+Tested up to: 3.3.1
+Stable tag: 2.2.1
 Donate Link: http://kimili.com/donate
 
 Provides a WordPress interface for SWFObject 2, the best way to embed Flash content on any site.
@@ -22,6 +22,7 @@ For non-english users, Kimili Flash Embed has been localized to the following la
 * Hindi
 * Irish Gaelic
 * Latvian
+* Romanian
 * Russian
 * Spanish
 
@@ -161,11 +162,11 @@ Define the minimum flash player version required by your .SWF using the fversion
 Add the useexpressinstall attribute to your `[kml_flashembed /]` tag, like this:
 
 > `useexpressinstall="true"`
-	
+
 In the end, your KFE tag should look something like this:
 
 > `[kml_flashembed movie="filename.swf" height="300" width="300" fversion="9" useexpressinstall="true"  /]`
-	
+
 That is all you need in order to invoke the Express Install functionality.  In the case of the above KFE tag, if a user arrives at your site with either a Flash Player 6, 7, or 8 installed, they will be alerted that they need a more recent version of the Flash Player and be given the option to upgrade it without leaving your site.
 
 == Defining Alternate Content for a Flash Movie ==
@@ -187,8 +188,8 @@ To define alternative content for a SWF, you can now nest arbitrary HTML inside 
 		<!-- End Alternate Content -->
 
 	[/kml_flashembed]
-	
-== Configuration Options ==	
+
+== Configuration Options ==
 
 KFE 2.1 features configuration options which allow you to customize how the plugin behaves as well as set all defaults for the Tag Generator and KFE tags that omit some parameters. In Wordpress, you can find the options by navigating to _Settings &rarr; Kimili Flash Embed_. Unless otherwise noted, the default tag generator values will be blank or unselected. You'll find the following options available to you:
 
@@ -281,7 +282,7 @@ Specifies the default "alternative content":#altContent to display when your SWF
 	</p>
 
 = Javascript Options =
-	
+
 **Create a reference to SWFObject.js?**
 Decide whether or not you want to create a reference to SWFObject 2.1 in the HTML of your page templates. It is useful to turn this off if you already have SWFObject being referenced elsewhere in your code. Note that SWFObject 2.x is NOT compatible with SWFObject 1.x! *KFE 2 requires SWFObject 2.x*. Default is _true_
 
@@ -309,6 +310,11 @@ So I can maintain them in one place, please see the Kimili Flash Embed FAQs at t
 == Changelog ==
 
 > **Note:** Because this plugin has been around for a while and numerous older versions exist, yet version 1.4 is the first version to actually be included in the Wordpress Plugin Repository, any older versions are NOT available here.  If you'd like to download an older version, you can do so at the [Kimili Flash Embed for Wordpress Home Page](http://kimili.com/plugins/kml_flashembed/wp).
+
+= Version 2.2.1 =
+
+* Tested up to Wordpress 3.3.1
+* Added Romanian localization (Thanks to [Web Geek Science](http://webhostinggeeks.com))
 
 = Version 2.2 =
 
@@ -381,7 +387,7 @@ So I can maintain them in one place, please see the Kimili Flash Embed FAQs at t
 = Version 1.3.1 =
 
 * Fixed movie ID (fid attribute) handling.
-           
+
 = Version 1.3 =
 
 * Updated SWFObject Javascript to latest codebase (SWFObject 1.5)
@@ -410,7 +416,7 @@ So I can maintain them in one place, please see the Kimili Flash Embed FAQs at t
 
 * Updated JS to latest codebase. (FlashObject 1.3, released 1/17/06)
 * Modified JS to support old browsers.
-* Added ability to pass arbitrary Javascript and PHP values to SWF. 
+* Added ability to pass arbitrary Javascript and PHP values to SWF.
 * Includes Express Install functionality.
 
 = Version 0.3.1 =

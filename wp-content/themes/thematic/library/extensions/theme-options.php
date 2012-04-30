@@ -19,7 +19,7 @@ $options = array (
 				array(	"name" => __('Info on Author Page','thematic'),
 						"desc" => __("Display a <a href=\"http://microformats.org/wiki/hcard\" target=\"_blank\">microformatted vCard</a>—with the author's avatar, bio and email—on the author page.",'thematic'),
 						"id" => $shortname."_authorinfo",
-						"std" => "false",
+						"std" => false,
 						"type" => "checkbox"),
 
 				array(	"name" => __('Text in Footer','thematic'),
@@ -35,29 +35,69 @@ $options = array (
 function mytheme_add_admin() {
 
     global $themename, $shortname, $options, $blog_id;
-
-    if ( $_GET['page'] == basename(__FILE__) ) {
     
-        if ( 'save' == $_REQUEST['action'] ) {
+    $page ='';
 
+	if (isset($_GET["page"]) && !empty($_GET["page"])) $page = $_GET["page"];
+	
+    if ( $page == basename(__FILE__) ) {
+    	
+    	$action = '';
+    	
+    	if (isset($_REQUEST["action"]) && !empty($_REQUEST["action"])) $action = $_REQUEST["action"];
+    	
+        if ( 'save' == $action ) {
+
+			check_admin_referer('thematic-theme-options');
+    
                 foreach ($options as $value) {
-                    update_option( $value['id'], $_REQUEST[ $value['id'] ] ); }
-
-                foreach ($options as $value) {
-                    if( isset( $_REQUEST[ $value['id'] ] ) ) { update_option( $value['id'], $_REQUEST[ $value['id'] ]  ); } else { delete_option( $value['id'] ); } }
-
+					
+                	if (THEMATIC_MB) 
+					{
+						if (isset($_REQUEST[ $value['id'] ])) {
+							update_blog_option( $blog_id, $value['id'], $_REQUEST[ $value['id'] ] );
+						} else {
+							update_blog_option( $blog_id, $value['id'], $value['std'] );
+						}
+					} 
+					
+					else 
+					
+					{
+						if (isset($_REQUEST[ $value['id'] ])) {
+							update_option( $value['id'], $_REQUEST[ $value['id'] ] );
+						} else {
+							update_option( $value['id'], $value['std'] );
+						}
+					}
+					
+				}			
+	
                 header("Location: themes.php?page=theme-options.php&saved=true");
                 die;
 
-        } else if( 'reset' == $_REQUEST['action'] ) {
+        } else if( 'reset' == $action ) {
+
+			check_admin_referer('thematic-reset');
 
             foreach ($options as $value) {
-                delete_option( $value['id'] ); }
+				if (THEMATIC_MB) 
+				{
+					delete_blog_option( $blog_id, $value['id'] );
+				} 
+					
+				else 
+					
+				{
+					delete_option( $value['id'] );
+				}
+			}
 
             header("Location: themes.php?page=theme-options.php&reset=true");
             die;
 
-        } else if ( 'resetwidgets' == $_REQUEST['action'] ) {
+        } else if ( 'resetwidgets' == $action ) {
+			check_admin_referer('thematic-reset-widgets');
             update_option('sidebars_widgets',NULL);
             header("Location: themes.php?page=theme-options.php&resetwidgets=true");
             die;
@@ -72,9 +112,9 @@ function mytheme_admin() {
 
     global $themename, $shortname, $options;
 
-    if ( $_REQUEST['saved'] ) echo '<div id="message" class="updated fade"><p><strong>'.$themename.' '.__('settings saved.','thematic').'</strong></p></div>';
-    if ( $_REQUEST['reset'] ) echo '<div id="message" class="updated fade"><p><strong>'.$themename.' '.__('settings reset.','thematic').'</strong></p></div>';
-    if ( $_REQUEST['resetwidgets'] ) echo '<div id="message" class="updated fade"><p><strong>'.$themename.' '.__('widgets reset.','thematic').'</strong></p></div>';
+    if (isset($_REQUEST["saved"]) && !empty($_REQUEST["saved"])) echo '<div id="message" class="updated fade"><p><strong>'.$themename.' '.__('settings saved.','thematic').'</strong></p></div>';
+    if (isset($_REQUEST["reset"]) && !empty($_REQUEST["reset"])) echo '<div id="message" class="updated fade"><p><strong>'.$themename.' '.__('settings reset.','thematic').'</strong></p></div>';
+    if (isset($_REQUEST["resetwidgets"]) && !empty($_REQUEST["resetwidgets"])) echo '<div id="message" class="updated fade"><p><strong>'.$themename.' '.__('widgets reset.','thematic').'</strong></p></div>';
     
 ?>
 <div class="wrap">
@@ -82,6 +122,8 @@ function mytheme_admin() {
 <h2><?php echo $themename; ?> Options</h2>
 
 <form method="post" action="">
+
+	<?php wp_nonce_field('thematic-theme-options'); ?>
 
 	<table class="form-table">
 
@@ -93,7 +135,7 @@ function mytheme_admin() {
 		<tr valign="top"> 
 			<th scope="row"><label for="<?php echo $value['id']; ?>"><?php echo __($value['name'],'thematic'); ?></label></th>
 			<td>
-				<input name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" value="<?php if ( get_option( $value['id'] ) != "") { echo get_option( $value['id'] ); } else { echo $value['std']; } ?>" />
+				<input name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" value="<?php if (THEMATIC_MB) {if ( get_blog_option( $blog_id, $value['id'] ) != "") { echo get_blog_option( $blogid, $value['id'] ); } else { echo $value['std']; }} else {if ( get_option( $value['id'] ) != "") { echo get_option( $value['id'] ); } else { echo $value['std']; }} ?>" />
 				<?php echo __($value['desc'],'thematic'); ?>
 
 			</td>
@@ -105,10 +147,10 @@ function mytheme_admin() {
 		?>
 		<tr valign="top">
 			<th scope="row"><label for="<?php echo $value['id']; ?>"><?php echo __($value['name'],'thematic'); ?></label></th>
-				<td>
-					<select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
+			<td>
+				<select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
 					<?php foreach ($value['options'] as $option) { ?>
-					<option<?php if ( get_option( $value['id'] ) == $option) { echo ' selected="selected"'; } elseif ($option == $value['std']) { echo ' selected="selected"'; } ?>><?php echo $option; ?></option>
+						<option<?php if(THEMATIC_MB){ if ( get_blog_option($blog_id, $value['id']) == $option) { echo ' selected="selected"'; } elseif (!get_option($value['id']) && $value['std'] == $option) { echo ' selected="selected"'; }} else { if ( get_option( $value['id'] ) == $option) { echo ' selected="selected"'; } elseif (!get_option($value['id']) && $value['std'] == $option) { echo ' selected="selected"'; }} ?>><?php echo $option; ?></option>
 					<?php } ?>
 				</select>
 			</td>
@@ -121,12 +163,31 @@ function mytheme_admin() {
 		?>
 		<tr valign="top"> 
 			<th scope="row"><label for="<?php echo $value['id']; ?>"><?php echo __($value['name'],'thematic'); ?></label></th>
-			<td><textarea name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" cols="<?php echo $ta_options['cols']; ?>" rows="<?php echo $ta_options['rows']; ?>"><?php 
-				if( get_option($value['id']) != "") {
-						echo __(stripslashes(get_option($value['id'])),'thematic');
-					}else{
+			<td><textarea name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" cols="<?php echo $ta_options['cols']; ?>" rows="<?php echo $ta_options['rows']; ?>"><?php
+				if (THEMATIC_MB)
+				{
+					if( get_blog_option($blog_id, $value['id']) != "") 
+					{
+						echo __(stripslashes(get_blog_option($blog_id, $value['id'])),'thematic');
+					}
+					else
+					{
 						echo __($value['std'],'thematic');
-				}?></textarea><br /><?php echo __($value['desc'],'thematic'); ?></td>
+					}
+				} 
+				else
+				{ 
+					if( get_option($value['id']) != "") 
+					{
+						echo __(stripslashes(get_option($value['id'])),'thematic');
+					}
+					else
+					{
+						echo __($value['std'],'thematic');
+					}
+				}
+				
+				?></textarea><br /><?php echo __($value['desc'],'thematic'); ?></td>
 		</tr>
 		<?php
 		break;
@@ -136,23 +197,58 @@ function mytheme_admin() {
 		<tr valign="top"> 
 			<th scope="row"><?php echo __($value['name'],'thematic'); ?></th>
 			<td>
-				<?php foreach ($value['options'] as $key=>$option) { 
-				$radio_setting = get_option($value['id']);
-				if($radio_setting != ''){
-					if ($key == get_option($value['id']) ) {
-						$checked = "checked=\"checked\"";
-						} else {
+				<?php
+				
+				foreach ($value['options'] as $key=>$option)
+				{
+					if (THEMATIC_MB)
+					{
+						$radio_setting = get_blog_option($blog_id, $value['id']);						
+					}
+					else
+					{
+						$radio_setting = get_option($value['id']);						
+					}
+					if($radio_setting != '')
+					{
+						if (THEMATIC_MB)
+						{
+							if ($key == get_blog_option($blog_id, $value['id']) ) 
+							{
+								$checked = "checked=\"checked\"";
+							}
+							else
+							{
+								$checked = "";
+							}
+						}
+						else
+						{
+							if ($key == get_option($value['id']) ) 
+							{
+								$checked = "checked=\"checked\"";
+							}
+							else
+							{
+								$checked = "";
+							}
+						}
+					}
+					else
+					{
+						if($key == $value['std'])
+						{
+							$checked = "checked=\"checked\"";
+						}
+						else
+						{
 							$checked = "";
 						}
-				}else{
-					if($key == $value['std']){
-						$checked = "checked=\"checked\"";
-					}else{
-						$checked = "";
 					}
-				}?>
+				?>
 				<input type="radio" name="<?php echo $value['id']; ?>" id="<?php echo $value['id'] . $key; ?>" value="<?php echo $key; ?>" <?php echo $checked; ?> /><label for="<?php echo $value['id'] . $key; ?>"><?php echo $option; ?></label><br />
-				<?php } ?>
+				<?php 
+				} ?>
 			</td>
 		</tr>
 		<?php
@@ -192,12 +288,14 @@ function mytheme_admin() {
 	</p>
 </form>
 <form method="post" action="">
+	<?php wp_nonce_field('thematic-reset'); ?>
 	<p class="submit">
 		<input class="button-secondary" name="reset" type="submit" value="<?php _e('Reset','thematic'); ?>" />
 		<input type="hidden" name="action" value="reset" />
 	</p>
 </form>
 <form method="post" action="">
+	<?php wp_nonce_field('thematic-reset-widgets'); ?>
 	<p class="submit">
 		<input class="button-secondary" name="reset_widgets" type="submit" value="<?php _e('Reset Widgets','thematic'); ?>" />
 		<input type="hidden" name="action" value="resetwidgets" />

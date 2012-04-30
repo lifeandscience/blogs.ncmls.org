@@ -18,6 +18,7 @@ delete_option( 'wp_twitter_failure' );
 delete_option( 'wp_supr_failure' );
 delete_option( 'wp_url_failure' );
 delete_option( 'wp_bitly_failure' );
+delete_option( 'wpt_curl_error' );
 
 // Blogroll options
 delete_option( 'jd-use-link-title' );

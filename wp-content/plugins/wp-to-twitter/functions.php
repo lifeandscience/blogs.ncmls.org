@@ -144,7 +144,6 @@ $options = array(
 	'yourlslogin'=>get_option( 'yourlslogin' ),	
 	'jd_keyword_format'=>get_option( 'jd_keyword_format' ),
 	
-	'use_tags_as_hashtags'=>get_option( 'use_tags_as_hashtags' ),	
 	'jd_strip_nonan'=>get_option( 'jd_strip_nonan' ),
 	'jd_replace_character'=>get_option( 'jd_replace_character' ),
 	'jd_max_tags'=>get_option('jd_max_tags'),
@@ -220,9 +219,20 @@ function wtt_option_selected($field,$value,$type='checkbox') {
 	return $output;
 }
 
+function wpt_date_compare($early,$late) {
+	$firstdate = strtotime($early);
+	$lastdate = strtotime($late);
+	if ($early <= $late ) { // if post_modified is before or equal to post_date
+		return 1;
+	} else {
+		return 0;
+	}	
+}
+
 function wpt_get_support_form() {
 global $current_user, $wpt_version;
 get_currentuserinfo();
+	$request = '';
 	// send fields for WP to Twitter
 	$version = $wpt_version;
 	$wtt_twitter_username = get_option('wtt_twitter_username');
@@ -234,7 +244,10 @@ get_currentuserinfo();
 	$charset = get_bloginfo('charset');
 	// server
 	$php_version = phpversion();
-
+	
+	$curl_init = ( function_exists('curl_init') )?'yes':'no';
+	$curl_exec = ( function_exists('curl_exec') )?'yes':'no';
+	
 	// theme data
 	$theme_path = get_stylesheet_directory().'/style.css';
 	$theme = get_theme_data($theme_path);
@@ -271,6 +284,8 @@ Charset: $charset
 PHP Version: $php_version
 Server Software: $_SERVER[SERVER_SOFTWARE]
 User Agent: $_SERVER[HTTP_USER_AGENT]
+cURL Init: $curl_init
+cURL Exec: $curl_exec
 
 ==Theme:==
 Name: $theme_name

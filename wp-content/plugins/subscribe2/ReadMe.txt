@@ -3,8 +3,8 @@ Contributors: MattyRob, Skippy, RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2387904
 Tags: posts, subscription, email, subscribe, notify, notification
 Requires at least: 3.1
-Tested up to: 3.3
-Stable tag: 7.0.1
+Tested up to: 3.3.1
+Stable tag: 8.2
 
 Sends a list of subscribers an email notification when new posts are published to your blog
 
@@ -58,9 +58,9 @@ You need to pay for the [Subscribe2 HTML version](http://wpplugins.com/plugin/46
 = Where can I get help? =
 So, you've downloaded the plugin an it isn't doing what you expect. First you should read the included documentation. There is a ReadMe.txt file and a PDF startup guide installed with the plugin.
 
-Next you could search in the [Subscribe2 Forum](http://getsatisfaction.com/subscribe2/), the [WordPress forums](http://wordpress.org/support/) or the [Subscribe2 blog FAQs](http://subscribe2.wordpress.com/category/faq/).
+Next you could search in the [WordPress forums](http://wordpress.org/support/), the old [Subscribe2 Forum](http://getsatisfaction.com/subscribe2/), or the [Subscribe2 blog FAQs](http://subscribe2.wordpress.com/category/faq/).
 
-No joy there? Well, if you can't find an answer to your question you can get [paid support](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2387904) by donating at least 20 UK pounds to the plugin author.
+If you can't find an answer then post a new topic at the [WordPress forums](http://wordpress.org/support/) or make a [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2387904) to get my attention!
 
 = Where can I get more information about the plugin features? =
 
@@ -85,15 +85,39 @@ Subscribe2 does not maintain a separate stylesheet for the emails it generates. 
 Note that if you ever change your site theme, you'll need to copy these additions over to the new theme's stylesheet. To avoid this problem, consider placing a custom CSS file on your server outside of your theme directory, and link to it from the template, thus overriding the active theme styles permanently.
 
 = Some or all email notifications fail to send, why?  =
-In the first instance ***check this with your hosting provider***, they have access to your server logs and will be able to tell you where and why emails are being blocked.
+In the first instance **check this with your hosting provider**, they have access to your server logs and will be able to tell you where and why emails are being blocked.
 
-Some hosting providers place a restriction on the maximum number of recipients in any one email message.  Some hosts simply block all emails on certain low-cost hosting plans.
+This is by far the most common question I am asked and the most frequent issue that arises. Without fail it is always down to a server side limitation or restriction.
 
-Subscribe2 provides a facility to work around this restriction by sending batches of emails.  To enable this feature, go to Settings->Subscribe2 and located the setting to restrict the number of recipients per email. If this is set to 30 then each outgoing email notification will only contain addresses for 30 recipients.
+These restrictions broadly fall into one of three areas. These are the sender details, the header details and restrictions on the number of messages sent.
+
+**Sender Details**. You may need to ensure that the email notification is being sent from an email address on the same domain as your blog. So, if your blog is http://www.example.com the email should be something like admin@example.com. To do this go to Subscribe2->Settings and carefully select from the dropdown list where is says "Send Email From". Here you will see "Post Author", then the name of your blog and then the names of your administrator level users. It may be wise to set up a dummy user account specifically to send the emails from and make sure you give that account an on domain email address.
+
+**Header Details**. Some hosting providers place a restriction on the maximum number of recipients in any one email message.  Some hosts simply block all emails on certain low-cost hosting plans.
+
+Subscribe2 provides a facility to work around a restriction of the maximum number of recipients per email by sending batches of emails.  To enable this feature, go to Settings->Subscribe2 and located the setting to restrict the number of recipients per email. If this is set to 30 then each outgoing email notification will only contain addresses for 30 recipients.
 
 Reminder: because subscribe2 places all recipients in BCC fields, and places the blog admin in the TO field, the blog admin will receive one email per batched delivery.  So if you have 90 subscribers, the blog admin should receive three post notification emails, one for each set of 30 BCC recipients.
 
-Batches will occur for each group of message as described above.  A site on Dreamhost with many public and registered subscribers could conceivably generate a lot of email for your own inbox.
+Batches will occur for each group of message as described above.  A site like this with many public and registered subscribers could conceivably generate a lot of email for your own inbox.
+
+**Restrictions on the number of messages sent**. In order to combat spam many hosts are now implementing time based limitations. This means you are only allowed to send a certain number of messages per unit time, 500 per hour for example. Subscribe2 does not have a work around for this inbuilt but see the next question.
+
+= My host has a limit of X emails per hour / day, can I limit the way Subscribe2 sends emails? =
+
+This is the second most common question I get asked (the first being about emails not being sent which quote often ends up here anyway!). This is more commonly called 'throttling' or 'choking'. PHP is a scripting language and while it is technically possible to throttle emails using script it is not very efficient. It is much better in terms of speed and server overhead (CPU cycles and RAM) to throttle using a server side application.
+
+In the first instance you should try to solve the problem by speaking to your hosting provider about changing the restrictions, move to a less restricting hosting package or change hosting providers.
+
+If the above has not put you off then I spent some time writing a Mail Queue script for Subscribe2 that adds the mails to a database table and sends then in periodic batches. It is available, at a price, [here](http://wpplugins.com/plugin/76/wordpress-mail-queue-wpmq).
+
+= My Digest emails fail to send, why? =
+
+If you have already worked through all of the above email trouble shooting tips, and you are still not seeing your periodic digest emails send there may be an issue with the WordPress pseudo-cron functions on your server.
+
+The pseudo-cron is WordPress is named after the cron jobs on servers. These are tasks that are run periodically to automate certain functions. In WordPress these tasks include checking for core and plugin updates, publishing scheduled posts and in the case of Subscribe2 sending the digest email. so, if the psuedo-cron is not working the email won't send.
+
+some reasons why your pseudo-cron may not be working are explained [here](http://wordpress.org/support/topic/296236#post-1175405). You can also try overcoming these by calling the wp-cron.php file directly and there are even [instructions](http://www.satollo.net/how-to-make-the-wordpress-cron-work) about how to set up a server cron job to do this periodically to restore WordPress pseudo-cron to a working state.
 
 = When I click on Send Preview in Settings->Susbcribe2 I get 4 emails, why =
 
@@ -104,14 +128,6 @@ Subscribe2 supports 4 potential email formats for Susbcribers so you will get a 
 Subscribe2 uses a filter system to display dynamic output to your readers. The token may result in the display of the subscription form, a subscription message, confirmation that an email has been sent, a prompt to log in. This information needs a static location for the output of the filter and a WordPress page is the ideal place for this to happen.
 
 If you decide to use Subscribe2 only using the widget you must still have at least one WordPress page on your site for Subscribe2 to work correctly.
-
-= My host has a limit of X emails per hour / day, can I limit the way Subscribe2 sends emails? =
-
-This is the second most common question I get asked (the first being about emails not being sent which quote often ends up here anyway!). This is more commonly called 'throttling' or 'choking'. PHP is a scripting language and while it is technically possible to throttle emails using script it is not very efficient. It is much better in terms of speed and server overhead (CPU cycles and RAM) to throttle using a server side application.
-
-In the first instance you should try to solve the problem by speaking to your hosting provider about changing the restrictions, move to a less restricting hosting package or change hosting providers.
-
-If the above has not put you off then I spent some time writing a Mail Queue script for Subscribe2 that adds the mails to a database table and sends then in periodic batches. It is available, at a price, [here](http://wpplugins.com/plugin/76/wordpress-mail-queue-wpmq).
 
 = Why is my admin address getting emails from Subscribe2? =
 
@@ -171,6 +187,10 @@ If, for some reason the Subscribe2 button does not appear in your browser window
 In order to force sending you'd need to change the date of publication on the posts from last week or amend the date stamp in the database regarding when the posts should be included from.
 
 If you opt for the latter way look in the options table for the subscribe2_options settings (it's an array) and you'll need to change the 'last_s2cron' value to a timestamp for last week. Then force the cron event to run again with [WP-Crontrol](http://wordpress.org/extend/plugins/wp-crontrol/).
+
+= I would really like Registered users to have the Subscription page themed like my site, is this possible? =
+
+Yes, it is. There is a small extension to Subscribe2 that delivers exactly this functionality. It is available from [Theme Tailors(http://stiofan.themetailors.com/store/products/tt-subscribe2-front-end-plugin/) for just $2.
 
 = How do I make use of the support for Custom Post Types =
 
@@ -282,6 +302,57 @@ Secondly, make sure that the token ([subscribe2] or <!--subscribe2-->) is correc
 4. The Options->Subscribe2 admin page generated by the plugin.
 
 == Changelog ==
+
+= Version 8.2 by Matthew Robinson =
+
+* Implemented use of Farbtastic as colour chooser in the Counter Widget because ColorPicker has been deprecated in WordPress
+* Fixed one hook call in WordPress to pass $this variable by reference to save a little more RAM
+* Fixed Subscribe2 implementation of custom taxonomies
+* Fixed Bulk Management Format Change code to apply for all users
+* Fix for low impact security vulnerability
+
+= Version 8.1 by Matthew Robinson =
+
+* Fixed redirect errors and crash affecting multisite installs on upgrade to 8.0 - thanks in particular to Ed Cooper
+* Fixed several other multisite bugs affecting links and styling - thanks to Mark Olbert
+* Fixed empty CSV exports - thanks to Gil Namur
+
+= Version 8.0 by Matthew Robinson =
+
+* Split the main plugin file into separate classes for more efficient (60% less RAM) server resource usage - huge thanks to Milan Petrovic
+* Ensure notifications for posts are sent to all active registered users
+* Fixed bug in Bulk Management code to include all filtered Registered Subscribers, not just those on current screen - thanks to samandiriel
+* Fixed some PHP messages regarding use of deprecated clean_url() function and WordPress version checking - thanks to anmari
+* Improved white space trimming in the code so it respects tabs and line breaks - thanks to belg4mit
+* Updated screenshots to Subscribe2 8.0 and WordPress 3.3.1 screen layouts
+* Implemented one-click buttons to subscribe and unsubscribe - thanks to dimadin for code patch
+* Changed some default settings, sender to BLOGNAME and number of recipients per email to 1
+* Implemented a change so that categories are not displayed in the filter dropdowns when using Subscribe2 in digest mode
+* Ensure an action is specified for HTML5 validity - thanks to Franco Carinato
+* Introduced 4 new hooks to filter per-post subscribers for each of the 4 email types - thanks to Nicolas Noé
+
+= Version 7.2 by Matthew Robinson =
+
+* Fix for non-sending Preview emails when sender details match recipient details exactly
+* Remove some HTML tags (DEL, S and STRIKE) from plain text content to avoid confusing reading - props cpo
+* Improved removal of excess white space within the content of the plain text emails
+* Introduced 'size' parameter to the shortcode to allow sizing of the email text input box
+* Fix for non-sending emails to newly Registered Subscribers - thanks to Gengar003 and WebEndev
+* Fix for commenter subscriptions on systems without moderation in place - thanks to elarson
+* Improved the TinyMCE plugin code that handles placement of the Subscribe2 shortcode in the rich text editor
+* Tidied up some public subscribe functions removing unnecessary code
+
+= Version 7.1 by Matthew Robinson =
+
+* Fix for Opt-out by Author for Registered Users that resulted in posts being sent even though a user had opted out
+* Workaround implemented for core WordPress glitch that reults in blank sender details in digest emails when using "Post Author" as sender
+* Introduced DIV HTML tags to the administrion menu screens to allow jQuery custom hiding by plugins - proposed by madtownlems
+* Reduced code overhead when collecting admin level users
+* Fix for non-sending emails when published via XML RPC interface (like the iOS app and Windows Live Writer) - thanks to bellarush & Marc Williams
+* Removed the X-Mailer header ready for core PHPMailer update
+* Removed single use of split() function which is deprecated in PHP 5.3.0
+* Added additional parameters to the 's2_html_email' hook - props Milan Dinić
+* Added a check on wp-cron.php to warn digest email users - props Dave Bergschneider
 
 = Version 7.0.1 by Matthew Robinson =
 

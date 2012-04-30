@@ -10,22 +10,32 @@
 
 ?>
 
-	<div id="container">
-		<div id="content">
-
-			<div id="post-0" class="post error404">
+		<div id="container">
+		
+			<?php thematic_abovecontent(); ?>
+		
+			<div id="content">
 			
-			<?php
-
-                // action hook for the 404 content
-                thematic_404()
-
-            ?>
+				<?php thematic_abovepost(); ?>
+		
+				<div id="post-0" class="post error404">
+				
+				<?php
+		
+    	            // action hook for the 404 content
+    	            thematic_404()
+		
+    	        ?>
+				
+				</div><!-- .post -->
+				
+				<?php thematic_belowpost(); ?>
+		
+			</div><!-- #content -->
 			
-			</div><!-- .post -->
-
-		</div><!-- #content -->
-	</div><!-- #container -->
+			<?php thematic_belowcontent(); ?> 
+			
+		</div><!-- #container -->
     
 <?php
 

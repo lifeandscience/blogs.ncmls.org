@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-to-twitter\n"
 "POT-Creation-Date: 2011-04-12 22:29:25+00:00\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Matheus Bratfisch <matheusbrat@gmail.com>\n"
+"Last-Translator: Miriam de Paula <miriamdepaula@wpmidia.com.br>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -567,7 +567,7 @@ msgstr "Salvar opções do WP->Twitter "
 
 #: wp-to-twitter-manager.php:479
 msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr> Shortener Account Settings"
-msgstr ""
+msgstr "Configurações da Conta do Encurtador de <abbr title=\"Uniform Resource Locator\">URL</abbr>"
 
 #: wp-to-twitter-manager.php:483
 msgid "Your Su.pr account details"
@@ -861,7 +861,7 @@ msgstr "Verifique suporte"
 
 #: wp-to-twitter-manager.php:706
 msgid "Check whether your server supports <a href=\"http://www.joedolson.com/articles/wp-to-twitter/\">WP to Twitter's</a> queries to the Twitter and URL shortening APIs. This test will send a status update to Twitter and shorten a URL using your selected methods."
-msgstr ""
+msgstr "Verifique se seu servidor suporta as consultas do <a href=\"http://www.joedolson.com/articles/wp-to-twitter/\">WP to Twitter</a> ao Twitter e às APIs de encurtamento de URLs. Este teste enviará uma atualização de status ao Twitter e ao encurtador de URLs usando seus métodos selecionados.  "
 
 #. Plugin URI of the plugin/theme
 msgid "http://www.joedolson.com/articles/wp-to-twitter/"
