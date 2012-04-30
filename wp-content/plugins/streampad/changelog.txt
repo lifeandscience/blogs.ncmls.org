@@ -1,0 +1,35 @@
+	Streampad Wordpress Plugin Changelog
+	
+	0.5.6 : 1) Added 'settings' link from plugin page
+
+	0.5.5 : 1) Fix for Warning: DOMDocument::loadHTML() [function.DOMDocument-loadHTML]: htmlParseEntityRef: no name in Entity by suppressing errors via error controller operator
+http://www.mutinydesign.co.uk/scripts/problems-encountered-with-php-dom-functions---3/
+
+	0.5.4 : 1) v0.5.3 fix didn't properly merge, corrected
+
+	0.5.3 : 1) Added fix for PHP4 Dom Parsing errors to use dom_xml in php4 and DOMDocument in php5
+
+	0.5.2 :  1) Update to clarify copy
+ 		 2) Fix to single tick escaping issue. 
+	
+	0.5.0  : 1) Added ability to manually add new tracks to Streampad Playlist through Streampad options page
+	         2) Added ability to manage tracks through through Streampad options page, including update & delete. 
+	         3) Changed 'Sync MP3' functionaility to only re-sync tracks found in posts or pages. Manual tracks are NOT affected. 
+	            Streampad table is no longer dropped from the database.
+                 4) Resolved bug where 'update post' doesn't get reflected in SP mp3 Table.
+
+	0.4.0 : 1) Added logic to remove mp3s from API when post moves from Published State to Draft State or Pending State. 
+		2) Shortened cache headers for SP JS files to 24 hrs. 
+		3) Attaching to the transition_post_status event for publication events, optimizing DB queries 
+		4) Added control to remove posts marked as private from SP table. 
+		5) Added case insensitve support for links with class name spmp3. 
+			   Supports multi classing: class="myname spmp3" || <a href="http://www.tumblr.com/audio_file/78143612/VAk2t2YIgjx1zalgeHa3RR6p" class="spmp3">mp3 ending</a>
+		6) Added support for publishing mp3s to Wordpress 'pages'.
+
+	0.3.4 : Minor tweak to PHP, including updated copyright notice.
+	
+	0.3.3 : Adding plugin version API to JSON response for tracking. 
+	
+	0.3.2 : Fix to Pass by Reference Error. Added Async JavaScript Call
+	
+	0.3   : Fix to Call - Time, Pass By Reference error

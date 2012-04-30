@@ -1,0 +1,62 @@
+# Translation of the WordPress plugin Merge Tags 1.2 by scribu.
+# Copyright (C) 2010 scribu
+# This file is distributed under the same license as the Merge Tags package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Merge Tags 1.2\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/merge-tags\n"
+"POT-Creation-Date: 2010-07-06 16:34+0300\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: merge-tags.php:65
+msgid "Invalid taxonomy"
+msgstr ""
+
+#: merge-tags.php:101
+msgid "Tags not merged."
+msgstr ""
+
+#: merge-tags.php:102
+msgid "Tags merged."
+msgstr ""
+
+#: merge-tags.php:116
+msgid "Merge"
+msgstr ""
+
+#: merge-tags.php:117
+msgid "To tag"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Merge Tags"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://scribu.net/wordpress/merge-tags"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Allows you to combine tags and categories from the tag editing interface"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "scribu"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://scribu.net/"
+msgstr ""
+
+#. Tags of the plugin/theme
+msgid "admin, management, category, tag, term, taxonomy"
+msgstr ""

@@ -1,0 +1,29 @@
+.domtooltips{
+  position: relative;
+}
+
+.domtooltips_tooltip{
+  position: absolute;
+  z-index: 100;
+  right: 0;
+}
+
+.domtooltips_tooltip:hover{
+  cursor: auto;
+}
+
+.explanatory_dictionary a{
+  text-decoration: none;
+}
+
+.explanatory_dictionary a:hover, .explanatory_dictionary a.explanatory_dictionary_selected_letter{
+  text-decoration: underline;
+}
+
+.explanatory_dictionary div.explanatory_dictionary_first{
+  margin-top: 10px;
+}
+
+.explanatory_dictionary span.explanatory_dictionary_word{
+  font-weight: bold;
+}

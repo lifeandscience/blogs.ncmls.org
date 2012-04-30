@@ -1,0 +1,253 @@
+/*
+Theme Name: NCMLS - Greg Dodge Journal Theme
+Theme URI: http://blogs.ncmls.org/
+Description: The child theme for the NCMLS Greg Dodge Journal
+Version: 1.0
+Author: Benjamin Schell
+Author URI: http://benschell.org
+Template: ncmls-parent
+
+	Based on: 
+	Kubrick v1.5
+	 http://binarybonsai.com/kubrick/
+
+	This theme was designed and built by Michael Heilemann,
+	whose blog you will find at http://binarybonsai.com/
+
+	The CSS, XHTML and design is released under GPL:
+	http://www.opensource.org/licenses/gpl-license.php
+
+*/
+
+@import url('../ncmls-parent/style.css');
+
+/*
+.nav {
+	background-color: #F0FAFA;
+}
+.nav a {
+	color: #E7E7E7;
+}
+*/
+.nav #piclist div.topics {
+	border-right: none;
+}
+.nav #piclist {
+	background-color: #A4DEE2;
+}
+.nav #piclist span.title {
+	color: black;
+}
+.nav #piclist li a,
+ul.post-categories li a.icon {
+	display: block;
+	background: transparent url('./images/crash_test_icons.gif') scroll no-repeat left top;
+}
+ul.post-categories li a.name {
+	display: block;
+	width: 53px;
+	overflow: hidden;
+}
+
+.nav #piclist div {
+	border-right: 1px solid black;
+}
+.nav #piclist div.popularity {
+	border-right: none;
+}
+/*
+.nav #piclist li a {
+	background-color: #FFF6A6;
+}
+
+.nav #piclist li.author-hybrid a {
+	background-position: -53px 0;
+}
+.nav #piclist li.author-noodle a {
+	background-position: -106px 0;
+}
+.nav #piclist li.author-carl a {
+	background-position: -159px 0;
+}
+.nav #piclist li.cat-item-5357 a,
+ul.post-categories li.cat-item-5357 a.icon {
+	background-position: 0 -53px;
+}
+.nav #piclist li.cat-item-846 a,
+ul.post-categories li.cat-item-846 a.icon {
+	background-position: -53px -53px;
+}
+.nav #piclist li.cat-item-5355 a,
+ul.post-categories li.cat-item-5355 a.icon {
+	background-position: -106px -53px;
+}
+.nav #piclist li.cat-item-5727 a,
+ul.post-categories li.cat-item-5727 a.icon {
+	background-position: -159px -53px;
+}
+.nav #piclist li.most-popular a {
+	background-position: 0 -106px;
+}
+.nav #piclist li.newest a {
+	background-position: -53px -106px;
+}
+.nav #piclist li.most-comments a {
+	background-position: -106px -106px;
+}
+.nav #piclist li.rss-feed a {
+	background-position: -159px -106px;
+}
+*/
+
+
+h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited, a, a:hover, a:active,
+.post div.meta .author,
+.post div.meta .author a,
+.post div.comment .commentlist .byuser,
+.commentmetadata a,
+.post div.comment .keeper-title-outer {
+	color: #16838F;
+}
+
+
+.post div.meta .author-blurb {
+	background-color: #F0FAFA;
+	color: #333333;
+}
+.post div.meta .author-meet,
+.recent div.call-to-action,
+.post div.comment .keeper-title  {
+	background-color: #A4DEE2;
+	color: #333333;
+}
+
+
+#nav-below .nav-previous {
+	background: transparent url('./images/previous_post_arrow.gif') scroll no-repeat left 4px;
+}
+#nav-below .nav-next {
+	background: transparent url('./images/next_post_arrow.gif') scroll no-repeat right 4px;
+}
+#nav-below a {
+	text-decoration: underline;
+}
+
+.recent div.left, .recent div.right {
+	background-color: #F0FAFA;
+	color: #333333;
+}
+/*
+.recent div.left a, .recent div.right a {
+	color: #333333;
+	text-decoration: underline;
+}
+*/
+.recent ul li,
+.recent h4 {
+	color: #333333;
+}
+.recent div.call-to-action a {
+	color: #333333;
+	text-decoration: underline;
+}
+.post div.comment .commentlist {
+	border-left-color: #A4DEE2;
+}
+.post div.comment .commentlist .byuser {
+	border-left-color: #A4DEE2;
+}
+
+
+ul.post-categories li.cat-item-6 { /* Birds */
+	background: transparent url('images/birds_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-3 { /* Flora */
+	background: transparent url('images/flora_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-4 { /* Insects and Other Arthropods */
+	background: transparent url('images/insect_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-7 { /* Mammals */
+	background: transparent url('images/mammal_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-5 { /* Reptiles and Amphibians */
+	background: transparent url('images/reptiles_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-10 { /* Fall */
+	background: transparent url('images/fall_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-8 { /* Spring */
+	background: transparent url('images/spring_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-9 { /* Summer */
+	background: transparent url('images/summer_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-11 { /* Winter */
+	background: transparent url('images/winter_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-thumbs-up {
+	background: transparent url('images/thumbs_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-new {
+	background: transparent url('images/new_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-speech-bubble {
+	background: transparent url('images/speech_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-waves {
+	background: transparent url('images/waves_white.gif') no-repeat;
+}
+
+#piclist .cat-item-6 { /* Birds */
+	background: transparent url('images/birds.gif');
+}
+#piclist .cat-item-3 { /* Flora */
+	background: transparent url('images/flora.gif');
+}
+#piclist .cat-item-4 { /* Insects and Other Arthropods */
+	background: transparent url('images/insect.gif');
+}
+#piclist .cat-item-7 { /* Mammals */
+	background: transparent url('images/mammal.gif');
+}
+#piclist .cat-item-5 { /* Reptiles and Amphibians */
+	background: transparent url('images/reptiles.gif');
+}
+#piclist .cat-item-10 { /* Fall */
+	background: transparent url('images/fall.gif');
+}
+#piclist .cat-item-8 { /* Spring */
+	background: transparent url('images/spring.gif');
+}
+#piclist .cat-item-9 { /* Summer */
+	background: transparent url('images/summer.gif');
+}
+#piclist .cat-item-11 { /* Winter */
+	background: transparent url('images/winter.gif');
+}
+#piclist .most-popular {
+	background: transparent url('images/thumbs.gif');
+}
+#piclist .newest {
+	background: transparent url('images/new.gif');
+}
+#piclist .most-comments {
+	background: transparent url('images/speech.gif');
+}
+#piclist .rss-feed {
+	background: transparent url('images/waves.gif');
+}
+
+h2 span.author {
+	font-size: 70%;
+	font-weight: normal;
+}
+.commentlist p.summary {
+	text-align: center;
+	padding: 0 40px;
+	color: #999999;
+	font-style: italic;
+}
+.commentlist p.summary a.orange {
+	color: #F26000;
+}

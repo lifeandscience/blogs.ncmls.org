@@ -1,0 +1,45 @@
+/*
+
+	Streampad
+
+Copyright 2009 AOL, LLC  (email : gregory.tomlinson@corp.aol.com | http://gregorytomlinson.com/encoded/)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+*/
+.sp_ajaxControlBttns {
+	
+}
+.sp_ajaxControlBttns {
+	
+}
+
+.sp_pagination_cntrl_bx {
+	padding-top:8px;
+}
+
+.sp_update_cntrl_bx, .add_sp_tracks {
+	padding:0 10px;
+	font-size:12px;
+}
+.add_sp_tracks, .sp_ajaxControlBttns a, .sp_update_cntrl_bx a, .sp_pagination_cntrl_bx a {
+	text-decoration:none;
+}
+.add_sp_tracks:hover, .sp_ajaxControlBttns a:hover, .sp_update_cntrl_bx a:hover, .sp_pagination_cntrl_bx a:hover {
+	text-decoration: underline;
+}
+#exisitingTrackList input.code, #trackList input.code {
+	width:355px;
+}

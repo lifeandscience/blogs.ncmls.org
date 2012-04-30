@@ -1,0 +1,151 @@
+/*
+Theme Name: NCMLS - Crash Test Blog Theme
+Theme URI: http://blogs.ncmls.org/
+Description: The child theme for the NCMLS Crash Test Blog
+Version: 1.0
+Author: Benjamin Schell
+Author URI: http://benschell.org
+Template: ncmls-parent
+
+	Based on: 
+	Kubrick v1.5
+	 http://binarybonsai.com/kubrick/
+
+	This theme was designed and built by Michael Heilemann,
+	whose blog you will find at http://binarybonsai.com/
+
+	The CSS, XHTML and design is released under GPL:
+	http://www.opensource.org/licenses/gpl-license.php
+
+*/
+
+@import url('../ncmls-parent/style.css');
+
+.nav {
+	background-color: black;
+}
+.nav a {
+	color: #E7E7E7;
+}
+.nav #piclist div.topics {
+	border-right: none;
+}
+.nav #piclist {
+	background-color: #FFE400;
+}
+.nav #piclist span.title {
+	color: black;
+}
+.nav #piclist li a,
+ul.post-categories li a.icon {
+	display: block;
+	background: transparent url('./images/crash_test_icons.gif') scroll no-repeat left top;
+}
+ul.post-categories li a.name {
+	display: block;
+	width: 53px;
+	overflow: hidden;
+}
+
+.nav #piclist div {
+	border-right: 1px solid black;
+}
+.nav #piclist div.popularity {
+	border-right: none;
+}
+
+.nav #piclist li a {
+	background-color: #FFF6A6;
+}
+
+.nav #piclist li.author-hybrid a {
+	background-position: -53px 0;
+}
+.nav #piclist li.author-noodle a {
+	background-position: -106px 0;
+}
+.nav #piclist li.author-carl a {
+	background-position: -159px 0;
+}
+.nav #piclist li.cat-item-5357 a,
+ul.post-categories li.cat-item-5357 a.icon {
+	background-position: 0 -53px;
+}
+.nav #piclist li.cat-item-846 a,
+ul.post-categories li.cat-item-846 a.icon {
+	background-position: -53px -53px;
+}
+.nav #piclist li.cat-item-5355 a,
+ul.post-categories li.cat-item-5355 a.icon {
+	background-position: -106px -53px;
+}
+.nav #piclist li.cat-item-5727 a,
+ul.post-categories li.cat-item-5727 a.icon {
+	background-position: -159px -53px;
+}
+.nav #piclist li.most-popular a {
+	background-position: 0 -106px;
+}
+.nav #piclist li.newest a {
+	background-position: -53px -106px;
+}
+.nav #piclist li.most-comments a {
+	background-position: -106px -106px;
+}
+.nav #piclist li.rss-feed a {
+	background-position: -159px -106px;
+}
+
+
+h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited, a, a:hover, a:active,
+.post div.meta .author,
+.post div.meta .author a,
+.post div.comment .commentlist .byuser,
+.commentmetadata a,
+.post div.comment .keeper-title-outer  {
+	color: #333333;
+}
+
+.post div.meta .author-blurb {
+	background-color: black;
+	color: white;
+}
+.post div.meta .author-meet,
+.recent div.call-to-action,
+.post div.comment .keeper-title  {
+	background-color: #FFE400;
+	color: black;
+}
+
+#nav-below .nav-previous {
+	background: transparent url('./images/left_arrow_yellow.gif') scroll no-repeat left 4px;
+}
+#nav-below .nav-next {
+	background: transparent url('./images/right_arrow_yellow.gif') scroll no-repeat right 4px;
+}
+#nav-below a {
+	text-decoration: underline;
+}
+
+.recent div.left, .recent div.right {
+	background-color: black;
+	color: white;
+}
+.recent div.left a, .recent div.right a {
+	color: white;
+	text-decoration: underline;
+}
+.recent ul li,
+.recent h4 {
+	color: white;
+}
+.recent div.call-to-action a {
+	color: #333333;
+	text-decoration: underline;
+}
+.post div.comment .commentlist {
+	border-left-color: #FFE400;
+}
+.post div.comment .commentlist .byuser {
+	border-left-color: #FFE400;
+}

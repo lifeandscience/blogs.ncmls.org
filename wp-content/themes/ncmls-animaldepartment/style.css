@@ -1,0 +1,143 @@
+/*
+Theme Name: NCMLS - Animal Department Blog Theme
+Theme URI: http://blogs.ncmls.org/
+Description: The child theme for the NCMLS Animal Department Blog
+Version: 1.0
+Author: Benjamin Schell
+Author URI: http://benschell.org
+Template: ncmls-parent
+
+	Based on: 
+	Kubrick v1.5
+	 http://binarybonsai.com/kubrick/
+
+	This theme was designed and built by Michael Heilemann,
+	whose blog you will find at http://binarybonsai.com/
+
+	The CSS, XHTML and design is released under GPL:
+	http://www.opensource.org/licenses/gpl-license.php
+
+*/
+
+@import url('../ncmls-parent/style.css');
+
+.nav #piclist div.topics {
+	border-right: none;
+}
+.nav #piclist {
+	background: #F6911F url('./images/fan.png') scroll no-repeat right top;
+}
+
+.nav #piclist li.cat-item-878 a,
+.nav #piclist li.cat-item-1164 a,
+.nav #piclist li.cat-item-1165 a,
+.nav #piclist li.cat-item-1187 a,
+.nav #piclist li.cat-item-1188 a,
+.nav #piclist li.cat-item-1189 a,
+.nav #piclist li.cat-item-1190 a,
+.nav #piclist li.cat-item-1191 a,
+.nav #piclist li.cat-item-1201 a,
+.nav #piclist li.cat-item-1202 a,
+.nav #piclist li.cat-item-1203 a,
+.nav #piclist li.cat-item-1218 a,
+ul.post-categories li.cat-item-878 a.icon,
+ul.post-categories li.cat-item-1164 a.icon,
+ul.post-categories li.cat-item-1165 a.icon,
+ul.post-categories li.cat-item-1187 a.icon,
+ul.post-categories li.cat-item-1188 a.icon,
+ul.post-categories li.cat-item-1189 a.icon,
+ul.post-categories li.cat-item-1190 a.icon,
+ul.post-categories li.cat-item-1191 a.icon,
+ul.post-categories li.cat-item-1201 a.icon,
+ul.post-categories li.cat-item-1202 a.icon,
+ul.post-categories li.cat-item-1203 a.icon,
+ul.post-categories li.cat-item-1218 a.icon {
+	display: block;
+}
+
+.nav #piclist li.cat-item-878 a {
+	background-image: url('./images/video-1.png');
+}
+.nav #piclist li.cat-item-1164 a {
+	background-image: url('./images/health-1.png');
+}
+.nav #piclist li.cat-item-1165 a {
+	background-image: url('./images/education-1.png');
+}
+.nav #piclist li.cat-item-1187 a {
+	background-image: url('./images/carolina-1.png');
+}
+.nav #piclist li.cat-item-1188 a {
+	background-image: url('./images/farmyard-1.png');
+}
+.nav #piclist li.cat-item-1189 a {
+	background-image: url('./images/enrichment-1.png');
+}
+.nav #piclist li.cat-item-1190 a {
+	background-image: url('./images/behind-1.png');
+}
+.nav #piclist li.cat-item-1191 a {
+	background-image: url('./images/hilarity-1.png');
+}
+.nav #piclist li.cat-item-1201 a {
+	background-image: url('./images/bears-1.png');
+}
+.nav #piclist li.cat-item-1202 a {
+	background-image: url('./images/lemurs-1.png');
+}
+.nav #piclist li.cat-item-1203 a {
+	background-image: url('./images/wolves-1.png');
+}
+.nav #piclist li.cat-item-1218 a {
+	background-image: url('./images/keepers-1.png');
+}
+
+ul.post-categories li.cat-item-878 a.icon {
+	background-image: url('./images/video-2.png');
+}
+ul.post-categories li.cat-item-1164 a.icon {
+	background-image: url('./images/health-2.png');
+}
+ul.post-categories li.cat-item-1165 a.icon {
+	background-image: url('./images/education-2.png');
+}
+ul.post-categories li.cat-item-1187 a.icon {
+	background-image: url('./images/carolina-2.png');
+}
+ul.post-categories li.cat-item-1188 a.icon {
+	background-image: url('./images/farmyard-2.png');
+}
+ul.post-categories li.cat-item-1189 a.icon {
+	background-image: url('./images/enrichment-2.png');
+}
+ul.post-categories li.cat-item-1190 a.icon {
+	background-image: url('./images/behind-2.png');
+}
+ul.post-categories li.cat-item-1191 a.icon {
+	background-image: url('./images/hilarity-2.png');
+}
+ul.post-categories li.cat-item-1201 a.icon {
+	background-image: url('./images/bears-2.png');
+}
+ul.post-categories li.cat-item-1202 a.icon {
+	background-image: url('./images/lemurs-2.png');
+}
+ul.post-categories li.cat-item-1203 a.icon {
+	background-image: url('./images/wolves-2.png');
+}
+ul.post-categories li.cat-item-1218 a.icon {
+	background-image: url('./images/keepers-2.png');
+}
+
+#nav-below .nav-previous {
+	background: transparent url('./images/left_arrow_orange.gif') scroll no-repeat left 4px;
+}
+#nav-below .nav-next {
+	background: transparent url('./images/right_arrow_orange.gif') scroll no-repeat right 4px;
+}
+
+.sharing li.share-facebook a {
+	color: #333;
+	text-decoration: none;
+	font-size: 12px;
+}

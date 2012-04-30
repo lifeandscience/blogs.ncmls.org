@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Merge Tags 1.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/merge-tags\n"
+"POT-Creation-Date: 2010-07-06 16:34+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: scribu <scribu@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: merge-tags.php:65
+msgid "Invalid taxonomy"
+msgstr "Taxonomie nevalidă"
+
+#: merge-tags.php:101
+msgid "Tags not merged."
+msgstr "Etichetele nu au fost combinate."
+
+#: merge-tags.php:102
+msgid "Tags merged."
+msgstr "Etichetele au fost combinate."
+
+#: merge-tags.php:116
+msgid "Merge"
+msgstr "Combină"
+
+#: merge-tags.php:117
+msgid "To tag"
+msgstr "La etichetă"
+
+#. Plugin Name of the plugin/theme
+msgid "Merge Tags"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://scribu.net/wordpress/merge-tags"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Allows you to combine tags and categories from the tag editing interface"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "scribu"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://scribu.net/"
+msgstr ""
+
+#. Tags of the plugin/theme
+msgid "admin, management, category, tag, term, taxonomy"
+msgstr ""
+
+#~ msgid "From tag(s)"
+#~ msgstr "Din etichete"
+#~ msgid "One or more tags to be merged"
+#~ msgstr "Una sau mai multe etichete de combinat"
+#~ msgid "The resulting tag"
+#~ msgstr "Eticheta rezultantă"
+#~ msgid "To tag:"
+#~ msgstr "La etichetă:"
+#~ msgid "Merge tags"
+#~ msgstr "Combină etichete"
+

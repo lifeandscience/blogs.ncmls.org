@@ -1,0 +1,542 @@
+/*
+Theme Name: Greg Dodge Journal
+Theme URI: http://blogs.ncmls.org/greg-dodge/
+Description: The custom Wordpress theme for the Greg Dodge Journal
+Author: Ben Schell
+Author URI: http://benschell.org
+Template: thematic
+Version: 1.0
+*/
+
+/* Reset browser defaults */
+@import url('../thematic/library/styles/reset.css');
+
+/* Apply basic typography styles */
+@import url('../thematic/library/styles/typography.css');
+
+/* Apply a basic layout */
+/* @import url('../thematic/library/layouts/2c-r-fixed.css'); */
+@import url('../thematic/library/layouts/3c-fixed.css');
+
+/* Apply basic image styles */
+@import url('../thematic/library/styles/images.css');
+
+/* Apply default theme styles and colors */
+/* It's better to actually copy over default.css into this file (or link to a copy in your child theme) if you're going to do anything outrageous */
+@import url('../thematic/library/styles/default.css');
+
+/* Prepare theme for plugins */
+@import url('../thematic/library/styles/plugins.css');
+
+#main {
+	padding-top: 33px;
+}
+#container {
+	margin-left: 0;
+}
+#content {
+	margin: 0 249px 0 249px;
+}
+#primary {
+	width: 236px;
+	border: none;
+	padding: 0;
+}
+ul.post-categories {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+ul.post-categories li {
+	margin-left: 14px;
+	float: right;
+}
+ul.post-categories li a {
+	display: block;
+	width: 53px;
+	padding-top: 53px;
+	text-align: center;
+	text-decoration: none;
+/*	color: #9A9A9A;*/
+}
+ul.post-categories li.cat-item-6 a { /* Birds */
+	background: transparent url('images/birds_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-3 { /* Flora */
+	background: transparent url('images/flora_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-4 { /* Insects and Other Arthropods */
+	background: transparent url('images/insect_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-7 { /* Mammals */
+	background: transparent url('images/mammal_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-5 { /* Reptiles and Amphibians */
+	background: transparent url('images/reptiles_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-10 { /* Fall */
+	background: transparent url('images/fall_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-8 { /* Spring */
+	background: transparent url('images/spring_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-9 { /* Summer */
+	background: transparent url('images/summer_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-11 { /* Winter */
+	background: transparent url('images/winter_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-thumbs-up {
+	background: transparent url('images/thumbs_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-new {
+	background: transparent url('images/new_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-speech-bubble {
+	background: transparent url('images/speech_white.gif') no-repeat;
+}
+ul.post-categories li.cat-item-waves {
+	background: transparent url('images/waves_white.gif') no-repeat;
+}
+#primary h1.entry-title {
+	font-family: Verdana, sans-serif;
+	font-size: 23px;
+	color: #16838F;
+	text-align: right;
+	font-weight: normal;
+	padding-top: 40px;
+	padding-bottom: 38px;
+}
+h1.page-title,
+#category-archives h2,
+#monthly-archives h2 {
+	font-family: Verdana, sans-serif;
+	font-size: 18px;
+	font-weight: normal;
+	padding: 0 43px;
+	margin-bottom: 20px;
+}
+h2.entry-title,
+h1.entry-title {
+	font-family: Verdana, sans-serif;
+	font-size: 23px;
+	font-weight: normal;
+	padding: 0 43px;
+}
+h2.entry-title a {
+	color: #16838F;
+}
+.entry-meta,
+.entry-utility {
+	padding: 0 43px;
+}
+#primary img {
+	float: right;
+}
+#primary .portrait {
+	width: 236px;
+}
+#primary ul.xoxo {
+	margin-top: 20px;
+}
+#primary span.author {
+	clear: both;
+	display: block;
+	text-align: right;
+	font-family: Verdana, sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+	color: #16838F;
+	padding-top: 11px;
+}
+#primary span.publish-date {
+	color: #999999;
+	padding-top: 12px;
+	display: block;
+	text-align: right;
+	font-family: Verdana, sans-serif;
+	font-size: 13px;
+	line-height: 13px;
+	text-transform: uppercase;
+	padding-bottom: 30px;
+}
+#primary ul.xoxo {
+	padding: 0;
+}
+#primary #text-3,
+#primary #text-4 {
+	font-size: 10.5px;
+	line-height: 13px;
+	font-family: Verdana, sans-serif;
+	color: #333333;
+	background-color: #F0FAFA;
+	padding: 10px;
+}
+#primary #text-4 {
+	background-color: #A4DEE2;
+}
+#header {
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+	width: 960px;
+}
+#branding {
+	padding-top: 28px;
+}
+#search {
+	float: right;
+	font-family: Verdana, sans-serif;
+	font-size: 10.5px;
+	color: #333333;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+#search .mls {
+	background: transparent url('images/mls_logo.gif') no-repeat scroll top left;
+	text-indent: -9000px;
+	width: 185px;
+	height: 16px;
+	display: block;
+}
+#search label.text {
+	display: none;
+}
+#search input.text {
+	width: 185px;
+	display: block;
+	margin-bottom: 5px;
+	margin-top: 15px;
+}
+#search input.radio, #search label.radio {
+	margin-top: 5px;
+}
+#search input.submit {
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+	font-family: Verdana, sans-serif;
+	font-size: 10.5px;
+	color: #333333;
+	float: right;
+	background-color: transparent;
+}
+#mlsLogo {
+	float: left;
+	width: 262px;
+	padding-left: 35px;
+}
+#mlsLogo a {
+	background: transparent url('images/mlsblogs_logo.gif') no-repeat scroll top left;
+	text-indent: -9000px;
+	width: 262px;
+	height: 58px;
+	display: block;
+}
+#blog-title {
+	width: 300px;
+	float: left;
+	line-height: 55px;
+}
+#blog-title a {
+	font-family: Verdana, sans-serif;
+	font-size: 23px;
+	color: #666666;
+	font-weight: normal;
+}
+#blog-description {
+	clear: both;
+	display: none;
+}
+
+.nav {
+	clear: both;
+	background-color: #DCDCDB;
+	padding-bottom: 15px;
+	margin-top: 10px;
+	font-family: Verdana, sans-serif;
+	font-size: 12px;
+}
+.nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.nav ul li {
+	display: block;
+	float: left;
+}
+.nav a {
+	color: #333333;
+	text-decoration: none;
+}
+.nav ul.text {
+	padding-left: 22px;
+	text-transform: uppercase;
+}
+.nav ul.text li {
+	padding: 4px 43px 4px 0;
+}
+.nav #piclist div {
+	float: left;
+	border-right: 1px solid #7CE2EB;
+}
+.nav #piclist div.popularity {
+	border-right: none;
+}
+.nav #piclist {
+	width: 100%;
+	clear: both;
+	background-color: #70CBD2;
+	padding: 11px 0 10px 0;
+}
+.nav #piclist ul {
+	padding-left: 17px;
+	padding-right: 3px;
+}
+.nav #piclist ul li {
+	border: 1px solid #333;
+	margin-right: 14px;
+}
+.nav #piclist li a {
+	display: block;
+	width: 53px;
+	height: 53px;
+	text-indent: -9000px;
+}
+.nav #piclist span.title {
+	display: block;
+	text-align: center;
+	color: white;
+	text-transform: lowercase;
+}
+#piclist .cat-item-6 a { /* Birds */
+	background: transparent url('images/birds.gif');
+}
+#piclist .cat-item-3 { /* Flora */
+	background: transparent url('images/flora.gif');
+}
+#piclist .cat-item-4 { /* Insects and Other Arthropods */
+	background: transparent url('images/insect.gif');
+}
+#piclist .cat-item-7 { /* Mammals */
+	background: transparent url('images/mammal.gif');
+}
+#piclist .cat-item-5 { /* Reptiles and Amphibians */
+	background: transparent url('images/reptiles.gif');
+}
+#piclist .cat-item-10 { /* Fall */
+	background: transparent url('images/fall.gif');
+}
+#piclist .cat-item-8 { /* Spring */
+	background: transparent url('images/spring.gif');
+}
+#piclist .cat-item-9 { /* Summer */
+	background: transparent url('images/summer.gif');
+}
+#piclist .cat-item-11 { /* Winter */
+	background: transparent url('images/winter.gif');
+}
+#piclist .cat-item-thumbs-up {
+	background: transparent url('images/thumbs.gif');
+}
+#piclist .cat-item-new {
+	background: transparent url('images/new.gif');
+}
+#piclist .cat-item-speech-bubble {
+	background: transparent url('images/speech.gif');
+}
+#piclist .cat-item-waves {
+	background: transparent url('images/waves.gif');
+}
+
+#nav-below {
+	font-size: 10.5px;
+	line-height: 10.5px;
+	font-family: Verdana, sans-serif;
+}
+#nav-below a {
+	color: #16838F;
+	font-style: normal;
+	padding-bottom: 6px;
+	line-height: 12.5px;
+}
+#nav-below span.title {
+	display: block;
+	color: #333333;
+	padding-bottom: 4px;
+	padding-top: 5px;
+}
+#nav-below .nav-previous {
+	background: url('images/previous_post_arrow.gif') no-repeat top left;
+	min-height: 31px;
+}
+#nav-below .nav-previous span.title,
+#nav-below .nav-previous a {
+	margin-left: 28px;
+	display: block;
+}
+#nav-below .nav-next {
+	background: url('images/next_post_arrow.gif') no-repeat top right;
+	text-align: right;
+	min-height: 31px;
+}
+#nav-below .nav-next span.title,
+#nav-below .nav-next a {
+	margin-right: 28px;
+	display: block;
+}
+
+.entry-content {
+	padding: 0 43px;
+}
+.entry-content p {
+	font-family: Verdana, sans-serif;
+	font-size: 13px;
+	line-height: 20px;
+	color: #333333;
+}
+.entry-content .wp-caption-text {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	line-height: 10px;
+	color: #666666;
+	text-align: left;
+}
+.wp-caption, .wp-caption img {
+	max-width: 356px;
+}
+
+.recent {
+	background-color: #F0FAFA;
+	overflow: auto;
+	padding: 5px 0;
+}
+.recent div.left {
+	width: 190px;
+	margin: 0 11px 0 15px;
+	float: left;
+}
+.recent div.right {
+	width: 206px;
+	margin: 0 10px 0 0;
+	float: left;
+}
+.recent div h4 {
+	font-size: 9.5px;
+	line-height: 19px;
+	color: #333;
+	font-family: Verdana, sans-serif;
+	text-transform: uppercase;
+	padding-bottom: 8px;
+}
+.recent div ul {
+	padding: 0;
+	margin: 0 0 0 15px;
+}
+.recent div ul li {
+	color: #16838F;
+	line-height: 12px;
+	padding-bottom: 8px;
+}
+.recent div ul li a {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	line-height: 12px;
+	color: #16838F;
+	text-decoration: none;
+}
+.recent div ul li a:hover {
+	text-decoration: underline;
+}
+h4.join {
+	font-size: 13px;
+	font-family: Verdana, sans-serif;
+	background-color: #A4DEE2;
+	border: 3px solid #333333;
+	color: #333333;
+	padding: 10px 30px;
+	font-weight: bold;
+	width: 166px;
+	-moz-border-radius: 12px;
+}
+#comments-list ol {
+	border: 0;
+}
+#comments-list ol li {
+	border: 0;
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	line-height: 19px;
+	color: #333;
+	font-style: italic;
+}
+.aside p {
+	margin-bottom: 1em;
+}
+#comments-list ol li .comment-content {
+	font-style: italic;
+}
+#comments-list li {
+	padding: 0 20px;
+	background-color: transparent;
+	margin: 30px 0;
+}
+#comments-list .comment-author,
+#comments-list .comment-author cite {
+	padding: 0;
+	font-size: 10px;
+	line-height: 12px;
+	color: #999999;
+	font-weight: normal;
+	font-style: normal;
+}
+#comments-list .comment-author cite {
+	font-weight: bold;
+}
+#comments-list .comment-meta,
+#comments-list .comment-meta a {
+	padding: 0;
+	font-size: 10px;
+	line-height: 12px;
+	color: #999999;
+	font-style: normal;
+}
+#comments-list .bypostauthor p,
+#comments-list .bypostauthor .comment-author,
+#comments-list .bypostauthor .comment-author cite,
+#comments-list .bypostauthor .comment-meta,
+#comments-list .bypostauthor .comment-meta a {
+	color: #990000;
+}
+#comments-list li.bypostauthor {
+	background-color: transparent;
+	border-left: 3px solid #A4DEE2;
+}
+.not-singular #content,
+.slug-most-popular #content,
+.slug-most-comments #content {
+	margin-right: 0;
+	width: 690px;	
+}
+.not-singular #content .post,
+.slug-most-popular #content .post,
+.slug-most-comments #content .post {
+	width: 442px;
+	float: left;
+}
+.not-singular #content .post-meta,
+.slug-most-popular #content .post-meta,
+.slug-most-comments #content .post-meta {
+	width: 220px;
+	float: right;
+	clear: both;
+}
+
+#monthly-archives,
+#category-archives {
+	width: 100%;
+	padding-bottom: 40px;
+}
+.slug-archives p {
+	margin: 0;
+}

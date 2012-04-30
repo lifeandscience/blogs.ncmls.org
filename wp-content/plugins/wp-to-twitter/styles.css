@@ -1,0 +1,54 @@
+#wp-to-twitter #message {
+margin: 10px 0;
+padding: 5px;
+}
+#wp-to-twitter .jd-settings {
+clear: both;
+}
+#wp-to-twitter form .error p {
+background: none;
+border: none;
+}
+legend {
+font-weight: 700;
+font-size: 1.2em;
+padding: 6px 0;
+}
+.resources {
+float: right;
+border: 1px solid #aaa;
+padding: 10px 10px 0;
+margin-left: 10px;
+margin-bottom: 10px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+background: #fff;
+text-align: center;
+}
+#wp-to-twitter .resources form {
+margin: 0;
+}
+.settings {
+margin: 25px 0;
+background: #fff;
+padding: 10px;
+border: 1px solid #000;
+}
+#wp-to-twitter .panel {
+border-bottom: 1px solid #ddd;
+padding: 0 5px;
+margin: 0 5px;
+}
+#wp-to-twitter ul {
+list-style-type: disc;
+margin-left: 3em;
+font-size: 1em;
+}
+#wp-to-twitter li {
+line-height: 1.2;
+}
+#wp-to-twitter .inside em {
+color: #f33;
+}
+#wp-to-twitter .button-side { position: absolute; top: 10px; right: 10px;}

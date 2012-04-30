@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR scribu
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Merge Tags\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/merge-tags\n"
+"POT-Creation-Date: 2009-11-17 03:12+0200\n"
+"PO-Revision-Date: 2009-12-07 00:18+0200\n"
+"Last-Translator: Fat Cow <zhr@tut.by>\n"
+"Language-Team: Fat Cow <zhr@tut.by>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Belarusian\n"
+"X-Poedit-Country: BELARUS\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: merge-tags.php:102
+msgid "Tags not merged."
+msgstr "Теги не объединены."
+
+#: merge-tags.php:103
+msgid "Tags merged."
+msgstr "Теги объединены."
+
+#: merge-tags.php:117
+#: merge-tags.php:146
+msgid "Merge"
+msgstr "Объединить"
+
+#. #-#-#-#-#  merge-tags.pot (Merge Tags 1.1b)  #-#-#-#-#
+#. Plugin Name of an extension
+#: merge-tags.php:126
+msgid "Merge Tags"
+msgstr "Объединить теги"
+
+#: merge-tags.php:134
+msgid "From tag(s)"
+msgstr "Из тегов"
+
+#: merge-tags.php:136
+msgid "One or more tags to be merged"
+msgstr "Теги будут объединены."
+
+#: merge-tags.php:140
+msgid "To tag"
+msgstr "Тегу"
+
+#: merge-tags.php:142
+msgid "The resulting tag"
+msgstr "Тег результата"
+
+#. Plugin URI of an extension
+msgid "http://scribu.net/wordpress/merge-tags"
+msgstr "http://scribu.net/wordpress/merge-tags"
+
+#. Description of an extension
+msgid "Allows you to combine tags from the tag editing interface"
+msgstr "Позволяет комбинировать теги из интерфейса редактирования тегов"
+
+#. Author of an extension
+msgid "scribu"
+msgstr "scribu"
+
+#. Author URI of an extension
+msgid "http://scribu.net/"
+msgstr "http://scribu.net/"
+
+#. Tags of an extension
+msgid "admin, tags, terms, taxonomy"
+msgstr "admin, tags, terms, taxonomy"
+
