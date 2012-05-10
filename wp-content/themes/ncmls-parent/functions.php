@@ -493,6 +493,9 @@ function get_author_title($auth){
 		case 'hybridthree':
 		case 'noodlejnoodle':
 			return 'Dummy';
+		case 'admin':
+		case 'jgrimes':
+			return 'Behavior Consultant';
 		default:
 			return 'Keeper';
 	}
@@ -577,8 +580,8 @@ if(!function_exists('do_the_post')){
 		<?php $tags = array(); foreach(get_the_tags() as $tag){ $tags[] = $tag->term_taxonomy_id; } get_mostpopular('stats_comments=0&limit=5&tags_to_include='.implode(',', $tags)); ?>
 	</div>
 	<div class="call-to-action">
-		<p>If you have an account on any of the Museum's blogs, you can <a href="http://blogs.ncmls.org/keepers/wp-login.php">sign in with the same login</a> to contribute to the discussion.</p>
-		<p>If you don't have an account, <a href="http://blogs.ncmls.org/keepers/wp-login.php?action=register">signing up</a> is free and easy.</p>
+		<p>If you have an account on any of the Museum's blogs, you can <a href="<?php echo wp_login_url($_SERVER['REQUEST_URI']); ?>">sign in with the same login</a> to contribute to the discussion.</p>
+		<p>If you don't have an account, <a href="<?php echo wp_login_url($_SERVER['REQUEST_URI']); ?>?action=register">signing up</a> is free and easy.</p>
 	</div>
 </div>
 			</div>
